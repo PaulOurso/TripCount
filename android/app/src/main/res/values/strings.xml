@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TripCount</string>
+    <string name="groupe_activity_name">Groupes</string>
 </resources>

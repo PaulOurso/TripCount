@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "232187461588",
+    "project_id": "firebase-tripcount"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232187461588:android:a5f8724f1f2dcc58",
+        "android_client_info": {
+          "package_name": "project.devmob.tripcount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232187461588-g1bnioe5hgs2mdi7paheho63v1jbcq45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.devmob.tripcount",
+            "certificate_hash": "DD960B40516A3F7A65E3F9338327BF518F69EE77"
+          }
+        },
+        {
+          "client_id": "232187461588-obguqavrs1lrlft1kgmp43gm0t7h22s3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlU44vqG5kVD3Fied4YtUX_iMODT3JEIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
