@@ -9,9 +9,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="project.devmob.tripcount.login.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Connect"/>

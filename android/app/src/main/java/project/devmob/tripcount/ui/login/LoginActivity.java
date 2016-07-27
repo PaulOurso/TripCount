@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
             GroupeActivity.show(LoginActivity.this);
-
+            finish();
         } else {
             //TODO:montrer une erreur d'identification
         }
