@@ -1,0 +1,11 @@
+{
+  "TripCountDataSource": {
+    "host": "ds029575.mlab.com",
+    "port": 29575,
+    "database": "tripcount_db",
+    "password": "user_tripcount",
+    "name": "TripCountDataSource",
+    "user": "tripcount_user",
+    "connector": "mongodb"
+  }
+}

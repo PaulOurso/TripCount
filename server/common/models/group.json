@@ -1,0 +1,36 @@
+{
+  "name": "group",
+  "plural": "groups",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "token": {
+      "type": "string",
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "spendings": {
+      "type": "hasMany",
+      "model": "spending",
+      "foreignKey": "group_spending"
+    },
+    "persons": {
+      "type": "hasMany",
+      "model": "person",
+      "foreignKey": "group_person"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

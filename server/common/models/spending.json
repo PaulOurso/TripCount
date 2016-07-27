@@ -1,0 +1,45 @@
+{
+  "name": "spending",
+  "plural": "spending",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "\"\""
+    },
+    "price": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "create_date": {
+      "type": "date",
+      "required": true,
+      "default": ""
+    },
+    "position": {
+      "type": "geopoint",
+      "required": true,
+      "default": {}
+    }
+  },
+  "validations": [],
+  "relations": {
+    "purchaser": {
+      "type": "hasOne",
+      "model": "person",
+      "foreignKey": "spending_person"
+    },
+    "indebted": {
+      "type": "hasMany",
+      "model": "debt",
+      "foreignKey": "spending_indebted"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
