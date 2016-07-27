@@ -1,6 +1,6 @@
 Before launch server :
-- npm install -g strongloop
-- npm install
+- npm install -g strongloop (only once)
+- npm install (only once, must to be in server/ directory)
 
 API use :
 - GET /accounts/count
