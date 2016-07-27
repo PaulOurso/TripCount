@@ -12,5 +12,33 @@
       "../common/mixins",
       "./mixins"
     ]
+  },
+  "group": {
+    "dataSource": "TripCountDataSource",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "account": {
+    "dataSource": "TripCountDataSource",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "spending": {
+    "dataSource": "TripCountDataSource",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "person": {
+    "dataSource": "TripCountDataSource",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "debt": {
+    "dataSource": "TripCountDataSource",
+    "public": true
   }
 }

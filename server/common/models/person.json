@@ -1,0 +1,26 @@
+{
+  "name": "person",
+  "plural": "persons",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "default": "\"\""
+    }
+  },
+  "validations": [],
+  "relations": {
+    "spendings": {
+      "type": "hasMany",
+      "model": "spending",
+      "foreignKey": "person_spending"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
