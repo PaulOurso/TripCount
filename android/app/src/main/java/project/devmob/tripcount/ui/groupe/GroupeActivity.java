@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.security.acl.Group;
+import java.util.List;
 
 import project.devmob.tripcount.R;
-import project.devmob.tripcount.models.Groupe;
+import project.devmob.tripcount.models.Group;
 
 public class GroupeActivity extends AppCompatActivity {
+
+    private List<Group> groupList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
