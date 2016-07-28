@@ -10,8 +10,9 @@
     tools:context=".ui.groupe.GroupeActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width=""
-        android:layout_height="" />
+<ListView
+    android:id="@+id/listing_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
 </LinearLayout>
