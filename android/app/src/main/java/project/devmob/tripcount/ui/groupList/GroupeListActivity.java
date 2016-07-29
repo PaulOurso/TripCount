@@ -27,15 +27,17 @@ public class GroupeListActivity extends AppCompatActivity {
         listViewGroup = (ListView) findViewById(R.id.listing_group);
         groupList = new ArrayList<>();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         listViewGroup.setAdapter(new AdapterGroupList(GroupeListActivity.this, R.layout.item_group, groupList));
-
         listViewGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Group groupSelected = (Group) listViewGroup.getAdapter().getItem(position);
-
-
             }
         });
     }
@@ -45,5 +47,6 @@ public class GroupeListActivity extends AppCompatActivity {
     }
 
     public void addGroup(View view) {
+        AddGroupActivity.show(GroupeListActivity.this);
     }
 }
