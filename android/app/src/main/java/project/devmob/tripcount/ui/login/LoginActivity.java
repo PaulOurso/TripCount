@@ -1,6 +1,5 @@
 package project.devmob.tripcount.ui.login;
 
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import project.devmob.tripcount.R;
-import project.devmob.tripcount.ui.groupe.GroupeActivity;
+import project.devmob.tripcount.ui.grouplist.GroupeListActivity;
 import project.devmob.tripcount.utils.Constant;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -75,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             //TODO:enregistrer le compte s'il n'existe pas
 
 
-            GroupeActivity.show(LoginActivity.this);
+            GroupeListActivity.show(LoginActivity.this);
             finish();
         } else {
             //TODO:montrer une erreur d'identification

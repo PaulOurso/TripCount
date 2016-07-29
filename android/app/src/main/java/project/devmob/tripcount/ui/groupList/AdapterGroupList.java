@@ -1,4 +1,4 @@
-package project.devmob.tripcount.ui.groupe;
+package project.devmob.tripcount.ui.grouplist;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,19 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import java.security.acl.Group;
-import java.util.ArrayList;
 import java.util.List;
+import project.devmob.tripcount.models.Group;
 
 /**
  * Created by Jean-Noel on 28/07/2016.
  */
-public class AdapterGroup extends ArrayAdapter<Group> {
+public class AdapterGroupList extends ArrayAdapter<Group> {
 
     int resId;
     LayoutInflater layoutInflater;
 
-    public AdapterGroup(Context context, int resource, List<Group> objects) {
+    public AdapterGroupList(Context context, int resource, List<Group> objects) {
         super(context, resource, objects);
 
         resId = resource;
