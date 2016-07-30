@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">TripCount</string>
-    <string name="groupe_activity_name">Groupes</string>
+    <string name="groupe_activity_name">Groups</string>
+    <string name="title_activity_group">GroupActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!--Login -->
+    <string name="login_toast_error_identification">An error occured during your identification</string>
+    <string name="login_connect">Connect</string>
+
+    <!--Add group -->
+    <string name="add_group_button">Create a new group</string>
+    <string name="add_group_title">Group\'s name :</string>
+    <string name="add_group_hint">Enter a group\'s name</string>
+    <string name="add_group_toast_alert_no_name">Please enter a group\'s name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

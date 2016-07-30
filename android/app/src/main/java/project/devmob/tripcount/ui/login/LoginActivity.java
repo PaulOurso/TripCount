@@ -1,12 +1,12 @@
 package project.devmob.tripcount.ui.login;
 
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -16,7 +16,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import project.devmob.tripcount.R;
-import project.devmob.tripcount.ui.groupe.GroupeActivity;
+import project.devmob.tripcount.ui.grouplist.GroupeListActivity;
 import project.devmob.tripcount.utils.Constant;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -41,16 +41,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(LoginActivity.this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
     }
 
-    private void signIn() {
+    public void signIn(View view) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, Constant.RC_SIGN_IN);
     }
@@ -75,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             //TODO:enregistrer le compte s'il n'existe pas
 
 
-            GroupeActivity.show(LoginActivity.this);
+            GroupeListActivity.show(LoginActivity.this);
             finish();
         } else {
             //TODO:montrer une erreur d'identification
@@ -88,6 +81,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Toast.makeText(LoginActivity.this, R.string.login_toast_error_identification, Toast.LENGTH_LONG);
     }
 }
