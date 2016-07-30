@@ -3,7 +3,6 @@ package project.devmob.tripcount.models;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ public class Group {
     public String id;
     public String name;
     public String token;
-    public Calendar create_date;
+    public String create_date;
 
     public static Type typeObjectOf() {
         return new TypeToken<Group>() {

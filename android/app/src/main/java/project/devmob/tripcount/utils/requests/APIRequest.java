@@ -59,9 +59,9 @@ public class APIRequest<TypeResult> {
         method = meth;
     }
 
-    public void execute(String url) {
+    public void execute(final String url) {
         if (method == -99999) {
-            Log.e("TripCount APIRequest", "Method request missing !");
+            Log.e("TripCount APIRequest", "Method request missing ! (url: "+url+")");
             return;
         }
         if (!Network.isOnline(context)) {
@@ -77,6 +77,7 @@ public class APIRequest<TypeResult> {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
+                        Log.d(TAG+" RESPONSE", "(url: "+url+") -> "+response);
                         TypeResult result = gson.fromJson(response, resultClass);
                         if (result != null && taskComplete != null) {
                             taskComplete.result = result;
@@ -98,7 +99,6 @@ public class APIRequest<TypeResult> {
             }
         };
         queue.add(stringRequest);
-        queue.start();
     }
 
 
@@ -126,6 +126,6 @@ public class APIRequest<TypeResult> {
             i++;
         }
         log += "}";
-        Log.d(TAG, log);
+        Log.d(TAG+" REQUEST", log);
     }
 }
