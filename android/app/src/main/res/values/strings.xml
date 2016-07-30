@@ -21,6 +21,7 @@
     <!-- Popin -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="loading">Loading</string>
+    <string name="loading">Loading…</string>
     <string name="error_http">An error has occurred. Please try again.</string>
+    <string name="not_connect">Please connect to perform your action.</string>
 </resources>

@@ -1,11 +1,10 @@
-package project.devmob.tripcount.utils;
+package project.devmob.tripcount.utils.requests;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,21 +17,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.utils.FastDialog;
 
 /**
  * Created by Tony Wisniewski on 29/07/2016.
  */
-public class NetworkVolley<TypeResult> extends Volley {
+public class APIRequest<TypeResult> {
 
     private Context context;
-    private final HashMap<String, String> params;
+    private HashMap<String, String> params;
     private boolean displayProgressDialog;
     private Dialog dialog;
     private Type resultClass;
     private TaskComplete<TypeResult> taskComplete;
     private int method;
 
-    public NetworkVolley(Context c, Type resClass, TaskComplete<TypeResult> taskCpl) {
+    public APIRequest(Context c, Type resClass, TaskComplete<TypeResult> taskCpl) {
         context = c;
         params = new HashMap<>();
         displayProgressDialog = true;
@@ -46,7 +46,6 @@ public class NetworkVolley<TypeResult> extends Volley {
         params.put(key, value);
     }
 
-    @Override
     public HashMap<String, String> getParams() {
         return params;
     }
@@ -61,7 +60,11 @@ public class NetworkVolley<TypeResult> extends Volley {
 
     public void execute(String url) {
         if (method == -99999) {
-            Log.e("TripCount NetworkVolley", "Method not specified !");
+            Log.e("TripCount APIRequest", "Method request missing !");
+            return;
+        }
+        if (!Network.isOnline(context)) {
+            Toast.makeText(context, R.string.not_connect, Toast.LENGTH_SHORT).show();
             return;
         }
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -88,14 +91,13 @@ public class NetworkVolley<TypeResult> extends Volley {
                     }
                 }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
+            protected Map<String, String> getParams() {
+                return APIRequest.this.getParams();
             }
         };
         queue.add(stringRequest);
         queue.start();
     }
-
 
 
     private void showDialog() {
@@ -108,6 +110,7 @@ public class NetworkVolley<TypeResult> extends Volley {
     private void dismissDialog() {
         if (dialog != null) {
             dialog.dismiss();
+            dialog = null;
         }
     }
 }

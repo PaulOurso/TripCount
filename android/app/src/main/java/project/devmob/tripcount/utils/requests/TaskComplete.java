@@ -1,7 +1,7 @@
-package project.devmob.tripcount.utils;
+package project.devmob.tripcount.utils.requests;
 
 /**
- * Created by MicroStop on 28/06/2016.
+ * Created by Tony Wisniewski on 28/06/2016.
  */
 public abstract class TaskComplete<T> {
 
