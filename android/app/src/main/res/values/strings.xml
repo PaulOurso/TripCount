@@ -6,7 +6,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!--Login -->
-    <string name="login_toast_error_identification">An error occured during your identification</string>
+    <string name="login_toast_error_identification">An error occurred during your identification</string>
     <string name="login_connect">Connect</string>
 
     <!--Add group -->

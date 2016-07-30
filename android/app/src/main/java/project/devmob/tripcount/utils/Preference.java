@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.cours.webservice.model.Commercant;
-import com.google.gson.Gson;
 
 /**
  * Created by Tony Wisniewski on 29/29/2016.

@@ -79,7 +79,6 @@ public class APIHelper {
 
 
     public static void getMyAccount(Context c, String access_token, Type typeAnswer, TaskComplete<Type> taskComplete) {
-        //Type listType = new TypeToken<List<Account>>(){}.getType();
         APIRequest<Type> apiRequest = new APIRequest<>(c, typeAnswer, taskComplete);
         String url = URL_ACCOUNTS;
         Map<String, String> wh = new HashMap<>();
@@ -90,7 +89,6 @@ public class APIHelper {
     }
 
     public static void getMyGroups(Context c, String idAccount, Type typeAnswer, TaskComplete<Type> taskComplete) {
-        //Type listType = new TypeToken<List<Account>>(){}.getType();
         APIRequest<Type> apiRequest = new APIRequest<>(c, typeAnswer, taskComplete);
         String url = String.format(URL_ACCOUNTS_GROUPS_FROM_ID, idAccount);
         Map<String, OrderBy> order = new HashMap<>();

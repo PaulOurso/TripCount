@@ -17,7 +17,7 @@ public class FastDialog {
         showDialog(c, typeDialog, c.getString(res));
     }
 
-    private static void showDialog(Context c, int typeDialog, String message) {
+    public static void showDialog(Context c, int typeDialog, String message) {
         if (c != null) {
             ProgressDialog progressDialog;
             switch (typeDialog) {
@@ -44,7 +44,7 @@ public class FastDialog {
         showDialog(c, typeDialog, c.getString(res), callbk);
     }
 
-    private static void showDialog(Context c, int typeDialog, String message,
+    public static void showDialog(Context c, int typeDialog, String message,
                                    OnClickListener callbk) {
         if (c != null) {
             ProgressDialog progressDialog;
@@ -74,7 +74,7 @@ public class FastDialog {
         showDialog(c, typeDialog, c.getString(res), callbk, callbk2);
     }
 
-    private static void showDialog(Context c, int typeDialog, String message,
+    public static void showDialog(Context c, int typeDialog, String message,
                                    OnClickListener callbk, OnClickListener callbk2) {
         if (c != null) {
             ProgressDialog progressDialog;
@@ -102,7 +102,7 @@ public class FastDialog {
         return showProgressDialog(c, c.getString(res));
     }
 
-    private static Dialog showProgressDialog(Context c, String message) {
+    public static Dialog showProgressDialog(Context c, String message) {
         ProgressDialog progressDialog = new ProgressDialog(c);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage(message);

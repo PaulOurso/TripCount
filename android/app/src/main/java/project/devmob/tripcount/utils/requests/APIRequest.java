@@ -24,6 +24,7 @@ import project.devmob.tripcount.utils.FastDialog;
  */
 public class APIRequest<TypeResult> {
 
+    private static final String TAG = "APIRequest";
     private Context context;
     private HashMap<String, String> params;
     private boolean displayProgressDialog;
@@ -67,6 +68,7 @@ public class APIRequest<TypeResult> {
             Toast.makeText(context, R.string.not_connect, Toast.LENGTH_SHORT).show();
             return;
         }
+        showLog(url);
         RequestQueue queue = Volley.newRequestQueue(context);
         showDialog();
         StringRequest stringRequest = new StringRequest(
@@ -87,7 +89,7 @@ public class APIRequest<TypeResult> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dismissDialog();
-                        FastDialog.showDialog(context, FastDialog.SIMPLE_DIALOG, R.string.error_http);
+                        FastDialog.showDialog(context, FastDialog.SIMPLE_DIALOG, context.getString(R.string.error_http)+": "+error.getMessage());
                     }
                 }) {
             @Override
@@ -112,5 +114,18 @@ public class APIRequest<TypeResult> {
             dialog.dismiss();
             dialog = null;
         }
+    }
+
+    private void showLog(String url) {
+        String log = url + " params: {";
+        int i = 0;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (i>0)
+                log +=", ";
+            log += entry.getKey()+": "+entry.getValue();
+            i++;
+        }
+        log += "}";
+        Log.d(TAG, log);
     }
 }
