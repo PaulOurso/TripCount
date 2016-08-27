@@ -32,6 +32,7 @@ public class APIRequest<TypeResult> {
     private Type resultClass;
     private TaskComplete<TypeResult> taskComplete;
     private int method;
+    private final static String[] METHOD_LOG = new String[] {"GET", "POST", "PUT", "DELETE"};
 
     public APIRequest(Context c, Type resClass, TaskComplete<TypeResult> taskCpl) {
         context = c;
@@ -77,7 +78,7 @@ public class APIRequest<TypeResult> {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        Log.d(TAG+" RESPONSE", "(url: "+url+") -> "+response);
+                        Log.d(TAG+" RESPONSE ("+METHOD_LOG[method]+")", "(url: "+url+") -> "+response);
                         TypeResult result = gson.fromJson(response, resultClass);
                         if (result != null && taskComplete != null) {
                             taskComplete.result = result;
@@ -126,6 +127,6 @@ public class APIRequest<TypeResult> {
             i++;
         }
         log += "}";
-        Log.d(TAG+" REQUEST", log);
+        Log.d(TAG+" REQUEST ("+METHOD_LOG[method]+")", log);
     }
 }
