@@ -9,11 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import project.devmob.tripcount.models.Account;
+import project.devmob.tripcount.models.Group;
+
 /**
  * Created by Tony Wisniewski on 29/07/2016.
  */
 public class APIHelper {
-    public static final String DOMAIN = "http://0.0.0.0:3000/api/";
+    public static final String DOMAIN = "http://192.168.1.14:3000/api/";
     public static final String URL_ACCOUNTS = DOMAIN + "accounts";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "accounts/%s/groups";
 
@@ -78,8 +81,8 @@ public class APIHelper {
     }
 
 
-    public static void getMyAccount(Context c, String access_token, Type typeAnswer, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, typeAnswer, taskComplete);
+    public static void getMyAccounts(Context c, String access_token, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeListOf(), taskComplete);
         String url = URL_ACCOUNTS;
         Map<String, String> wh = new HashMap<>();
         wh.put("access_token", access_token);
@@ -88,8 +91,17 @@ public class APIHelper {
         apiRequest.execute(url);
     }
 
-    public static void getMyGroups(Context c, String idAccount, Type typeAnswer, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, typeAnswer, taskComplete);
+    public static void createAccount(Context c, Account account, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        String url = URL_ACCOUNTS;
+        apiRequest.addParam("mail", account.mail);
+        apiRequest.addParam("access_token", account.access_token);
+        apiRequest.setMethod(Request.Method.POST);
+        apiRequest.execute(url);
+    }
+
+    public static void getMyGroups(Context c, String idAccount, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeListOf(), taskComplete);
         String url = String.format(URL_ACCOUNTS_GROUPS_FROM_ID, idAccount);
         Map<String, OrderBy> order = new HashMap<>();
         order.put("create_date", OrderBy.DESC);

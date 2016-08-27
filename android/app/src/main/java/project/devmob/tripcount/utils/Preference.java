@@ -4,14 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
+
+import project.devmob.tripcount.models.Account;
+
 
 /**
  * Created by Tony Wisniewski on 29/29/2016.
  */
 public class Preference {
 
-    public static final String KEY_PHONE = "KEY_PHONE";
-    public static final String KEY_INFO_COMMERCANT = "KEY_INFO_COMMERCANT";
+    public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
 
     private static SharedPreferences get(Context c) {
         return PreferenceManager.getDefaultSharedPreferences(c);
@@ -25,20 +28,21 @@ public class Preference {
         get(c).edit().putString(key, value).apply();
     }
 
-    /*public static Commercant getCommercant(Context c) {
-        String commer = getPref(c, Preference.KEY_INFO_COMMERCANT);
-        Commercant commercant = null;
-        if (commer != null) {
+
+    public static Account getAccount(Context c) {
+        String acc = getPref(c, Preference.KEY_ACCOUNT);
+        Account account = null;
+        if (acc != null) {
             Gson gson = new Gson();
-            commercant = gson.fromJson(commer, Commercant.class);
+            account = gson.fromJson(acc, Account.class);
         }
-        return commercant;
+        return account;
     }
 
-    public static void setCommercant(Context c, Commercant commercant) {
-        if (commercant != null)
-            setPref(c, KEY_INFO_COMMERCANT, new Gson().toJson(commercant));
+    public static void setAccount(Context c, Account account) {
+        if (account != null)
+            setPref(c, KEY_ACCOUNT, new Gson().toJson(account));
         else
-            setPref(c, KEY_INFO_COMMERCANT, null);
-    }*/
+            setPref(c, KEY_ACCOUNT, null);
+    }
 }
