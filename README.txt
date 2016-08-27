@@ -1,6 +1,8 @@
-Before launch server :
+﻿Before launch server :
 - npm install -g strongloop (only once)
 - npm install (only once, must to be in server/ directory)
+
+Then to launch server, go to /server/ and run "node ."
 
 API use :
 - GET /accounts/count
