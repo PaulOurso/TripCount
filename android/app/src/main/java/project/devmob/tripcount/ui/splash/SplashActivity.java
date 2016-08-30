@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.ui.grouplist.GroupeListActivity;
 import project.devmob.tripcount.ui.login.LoginActivity;
 import project.devmob.tripcount.utils.Constant;
 
@@ -22,7 +23,10 @@ public class SplashActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run(){
-                LoginActivity.show(SplashActivity.this);
+                //LoginActivity.show(SplashActivity.this);
+
+                //to pass google identification
+                GroupeListActivity.show(SplashActivity.this);
             }
         }, Constant.SPLASH_TIME);
     }

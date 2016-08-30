@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.models.Spending;
 
 public class GroupActivity extends AppCompatActivity {
 
@@ -116,7 +117,14 @@ public class GroupActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch(position){
+                case 1:
+                    return MapFragment.newInstance(); //fragment Map
+                case 2:
+                    return BilanFragment.newInstance(); //fragment Bilan
+                default:
+                    return SpendingFragment.newInstance();//default
+            }
         }
 
         @Override
@@ -129,11 +137,11 @@ public class GroupActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Spending";
                 case 1:
-                    return "SECTION 2";
+                    return "Map";
                 case 2:
-                    return "SECTION 3";
+                    return "Bilan";
             }
             return null;
         }
