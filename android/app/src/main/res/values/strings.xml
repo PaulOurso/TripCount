@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">TripCount</string>
-    <string name="groupe_activity_name">Groups</string>
-    <string name="title_activity_group">GroupActivity</string>
+    <string name="app_name">Trip Count</string>
+    <string name="title_activity_group_list">My groups</string>
+    <string name="title_activity_group">%1$s</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!--Login -->
-    <string name="login_toast_error_identification">An error occured during your identification</string>
+    <string name="login_toast_error_identification">An error occurred during your identification</string>
     <string name="login_connect">Connect</string>
 
     <!--Add group -->
@@ -17,4 +17,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Popin -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="loading">Loading…</string>
+    <string name="error_http">An error has occurred. Please try again.</string>
+    <string name="not_connect">Please connect to perform your action.</string>
 </resources>

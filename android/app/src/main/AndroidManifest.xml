@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.devmob.tripcount">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,12 +24,13 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/LoginTheme" />
-        <activity android:name=".ui.grouplist.GroupeListActivity" />
+        <activity android:name=".ui.grouplist.GroupeListActivity"
+            android:label="@string/title_activity_group_list"/>
         <activity
             android:name=".ui.group.GroupActivity"
             android:label="@string/title_activity_group"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.grouplist.AddGroupActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.grouplist.AddGroupActivity"/>
     </application>
 
 </manifest>

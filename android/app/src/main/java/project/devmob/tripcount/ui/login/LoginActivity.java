@@ -13,11 +13,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.models.Account;
 import project.devmob.tripcount.ui.grouplist.GroupeListActivity;
 import project.devmob.tripcount.utils.Constant;
+import project.devmob.tripcount.utils.Preference;
+import project.devmob.tripcount.utils.requests.APIHelper;
+import project.devmob.tripcount.utils.requests.TaskComplete;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -41,10 +49,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(LoginActivity.this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        SignInButton button = (SignInButton) findViewById(R.id.sign_in_button);
+        if (button != null) {
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    signIn();
+                }
+            });
+        }
     }
 
-    public void signIn(View view) {
-
+    public void signIn() {
         Log.d(TAG, "signIn clicked");
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, Constant.RC_SIGN_IN);
@@ -65,16 +82,45 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Log.d(TAG, "handleSiFgnInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
+            final GoogleSignInAccount acct = result.getSignInAccount();
 
-            //TODO:enregistrer le compte s'il n'existe pas
-
-
-            GroupeListActivity.show(LoginActivity.this);
-            finish();
+            APIHelper.getMyAccounts(LoginActivity.this, "tp"+acct.getId(), new TaskComplete<Type>() {
+                @Override
+                public void run() {
+                    List<Account> list = (List<Account>) result;
+                    // if user has account
+                    if (list != null && list.size() > 0) {
+                        Account myAcc = list.get(0);
+                        Preference.setAccount(LoginActivity.this, myAcc);
+                        next();
+                    }
+                    else {
+                        // Create account
+                        Account account = new Account();
+                        account.mail = acct.getEmail();
+                        account.access_token = "tp"+acct.getId();
+                        APIHelper.createAccount(LoginActivity.this, account, new TaskComplete<Type>() {
+                            @Override
+                            public void run() {
+                                Account resultAccount = (Account) result;
+                                Preference.setAccount(LoginActivity.this, resultAccount);
+                                if (resultAccount != null) {
+                                    next();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         } else {
             //TODO:montrer une erreur d'identification
+            Toast.makeText(LoginActivity.this, R.string.login_toast_error_identification, Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void next() {
+        GroupeListActivity.show(LoginActivity.this);
+        finish();
     }
 
     public static void show(Context context){
@@ -83,6 +129,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(LoginActivity.this, R.string.login_toast_error_identification, Toast.LENGTH_LONG);
+        Toast.makeText(LoginActivity.this, R.string.login_toast_error_identification, Toast.LENGTH_LONG).show();
     }
 }
