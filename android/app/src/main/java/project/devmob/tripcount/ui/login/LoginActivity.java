@@ -44,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void signIn(View view) {
+
+        Log.d(TAG, "signIn clicked");
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, Constant.RC_SIGN_IN);
     }
@@ -60,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        Log.d(TAG, "handleSiFgnInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();

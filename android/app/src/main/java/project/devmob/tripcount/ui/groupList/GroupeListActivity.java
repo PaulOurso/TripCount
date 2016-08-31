@@ -26,7 +26,6 @@ public class GroupeListActivity extends AppCompatActivity {
 
         listViewGroup = (ListView) findViewById(R.id.listing_group);
         groupList = new ArrayList<>();
-
     }
 
     @Override
