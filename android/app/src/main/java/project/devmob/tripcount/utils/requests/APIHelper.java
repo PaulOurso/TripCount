@@ -16,9 +16,11 @@ import project.devmob.tripcount.models.Group;
  * Created by Tony Wisniewski on 29/07/2016.
  */
 public class APIHelper {
-    public static final String DOMAIN = "http://192.168.1.14:3000/api/";
-    public static final String URL_ACCOUNTS = DOMAIN + "accounts";
-    public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "accounts/%s/groups";
+    public static final String DOMAIN = "http://192.168.1.14:3000/api";
+    public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
+    public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
+    public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups/findOne";
+    public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
 
     enum OrderBy { ASC, DESC }
 
@@ -100,13 +102,39 @@ public class APIHelper {
         apiRequest.execute(url);
     }
 
-    public static void getMyGroups(Context c, String idAccount, TaskComplete<Type> taskComplete) {
+    public static void getMyGroups(Context c, Account account, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeListOf(), taskComplete);
-        String url = String.format(URL_ACCOUNTS_GROUPS_FROM_ID, idAccount);
+        String url = String.format(URL_ACCOUNTS_GROUPS_FROM_ID, account.id);
         Map<String, OrderBy> order = new HashMap<>();
         order.put("create_date", OrderBy.DESC);
         url = orderBy(0, url, order);
         apiRequest.setMethod(Request.Method.GET);
+        apiRequest.execute(url);
+    }
+
+    public static void createGroup(Context c, Account account, Group group, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeObjectOf(), taskComplete);
+        String url = String.format(URL_ACCOUNTS_GROUPS_FROM_ID, account.id);
+        apiRequest.setMethod(Request.Method.POST);
+        apiRequest.addParam("name", group.name);
+        apiRequest.addParam("token", group.token);
+        apiRequest.addParam("create_date", group.create_date);
+        apiRequest.execute(url);
+    }
+
+    public static void findGroupWithToken(Context c, String token, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeObjectOf(), taskComplete);
+        Map<String, String> where = new HashMap<>();
+        where.put("token", token);
+        String url = where(0, URL_GROUP_FIND_ONE, where);
+        apiRequest.setMethod(Request.Method.GET);
+        apiRequest.execute(url);
+    }
+
+    public static void joinGroup(Context c, Account account, Group group, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, null, taskComplete);
+        String url = String.format(URL_JOIN_GROUP, account.id, group.id);
+        apiRequest.setMethod(Request.Method.PUT);
         apiRequest.execute(url);
     }
 }

@@ -14,6 +14,10 @@
     <string name="add_group_title">Group\'s name :</string>
     <string name="add_group_hint">Enter a group\'s name</string>
     <string name="add_group_toast_alert_no_name">Please enter a group\'s name</string>
+    <string name="add_group_toast_alert_no_token">Please enter a group\'s token</string>
+    <string name="add_token_title">Group\'s token :</string>
+    <string name="add_token_hint">Enter a token</string>
+    <string name="add_token_button">Join the group</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -24,4 +28,6 @@
     <string name="loading">Loading…</string>
     <string name="error_http">An error has occurred. Please try again.</string>
     <string name="not_connect">Please connect to perform your action.</string>
+    <string name="add_group_success">Add group success !</string>
+    <string name="group_not_found">Group not found.</string>
 </resources>

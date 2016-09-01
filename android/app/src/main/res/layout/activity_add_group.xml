@@ -15,9 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_group_title"
-        android:gravity="left"
         android:textSize="20sp"
         android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/error_new_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:gravity="left"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/new_group_name"
@@ -32,4 +39,34 @@
         android:text="@string/add_group_button"
         android:onClick="addNewGroup"/>
 
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_token_title"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/error_add_group_token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:gravity="left"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/add_token_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_token_hint"/>
+
+    <Button
+        android:id="@+id/button_add_token_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_token_button"
+        android:onClick="joinGroup"/>
 </LinearLayout>
