@@ -83,7 +83,6 @@ public class APIHelper {
         return url;
     }
 
-
     public static void getMyAccounts(Context c, String access_token, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeListOf(), taskComplete);
         String url = URL_ACCOUNTS;

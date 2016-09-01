@@ -35,4 +35,17 @@
     <string name="group_not_found">Group not found.</string>
 
     <!-- GroupList -->
+
+    <!-- Add spending -->
+    <string name="add_spending_name_title">Spending :</string>
+    <string name="add_spending_name_hint">Enter your spending\'s name</string>
+    <string name="add_spending_cost_title">Cost :</string>
+    <string name="add_spending_cost_hint">Enter the cost of this spending</string>
+    <string name="add_spending_payer_title">Payer :</string>
+    <string name="add_spending_payer_hint">Enter the payer of this spending</string>
+    <string name="add_spending_participant_list_title">Participant :</string>
+    <string name="add_spending_button">Add a new spending</string>
+    <string name="add_spending_toast_alert_no_name">Please, enter a spending name</string>
+    <string name="add_spending_toast_alert_no_cost">Please, enter the cost of your spending</string>
+    <string name="add_spending_toast_alert_no_payer">Please, enter the payer of your spending</string>
 </resources>

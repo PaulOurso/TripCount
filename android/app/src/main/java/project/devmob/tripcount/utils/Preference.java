@@ -28,7 +28,6 @@ public class Preference {
         get(c).edit().putString(key, value).apply();
     }
 
-
     public static Account getAccount(Context c) {
         String acc = getPref(c, Preference.KEY_ACCOUNT);
         Account account = null;

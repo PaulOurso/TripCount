@@ -21,15 +21,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/LoginTheme" />
-        <activity android:name=".ui.grouplist.GroupeListActivity"
-            android:label="@string/title_activity_group_list"/>
+        <activity
+            android:name=".ui.grouplist.GroupeListActivity"
+            android:label="@string/title_activity_group_list" />
         <activity
             android:name=".ui.group.GroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.grouplist.AddGroupActivity"/>
+        <activity android:name=".ui.grouplist.AddGroupActivity"
+            android:label="@string/title_activity_group"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.group.AddSpendingActivity"></activity>
+>>>>>>> create and begin view for addSpending
     </application>
 
 </manifest>
