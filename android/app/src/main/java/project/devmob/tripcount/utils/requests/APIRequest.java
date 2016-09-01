@@ -105,7 +105,6 @@ public class APIRequest<TypeResult> {
         queue.add(stringRequest);
     }
 
-
     private void showDialog() {
         if (displayProgressDialog) {
             dialog = FastDialog.showProgressDialog(context, R.string.loading);
