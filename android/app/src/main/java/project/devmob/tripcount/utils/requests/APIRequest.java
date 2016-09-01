@@ -79,8 +79,11 @@ public class APIRequest<TypeResult> {
                     public void onResponse(String response) {
                         Gson gson = new Gson();
                         Log.d(TAG+" RESPONSE ("+METHOD_LOG[method]+")", "(url: "+url+") -> "+response);
-                        TypeResult result = gson.fromJson(response, resultClass);
-                        if (result != null && taskComplete != null) {
+                        TypeResult result = null;
+                        if (resultClass != null) {
+                            result = gson.fromJson(response, resultClass);
+                        }
+                        if (taskComplete != null) {
                             taskComplete.result = result;
                             taskComplete.run();
                         }

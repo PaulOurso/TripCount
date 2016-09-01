@@ -1,4 +1,4 @@
-package project.devmob.tripcount.utils;
+package project.devmob.tripcount.utils.helpers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,13 +11,14 @@ import java.util.TimeZone;
  */
 public class FormatHelper {
 
-    public static final String DATE_FORMAT_ENCODE = "yyyy-MM-dd HH:mm:ss Z";
+    public static final String DATE_FORMAT_ENCODE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String DATE_FORMAT_DECODE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     public static String formatCalToString(Calendar cal) {
         if (cal == null)
             return "";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_ENCODE, Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_ENCODE);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return simpleDateFormat.format(cal.getTime());
     }
 
