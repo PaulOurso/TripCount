@@ -5,6 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    <!-- Common -->
+    <string name="currency">%1$s $</string>
+
     <!--Login -->
     <string name="login_toast_error_identification">An error occurred during your identification</string>
     <string name="login_connect">Connect</string>
@@ -30,4 +33,6 @@
     <string name="not_connect">Please connect to perform your action.</string>
     <string name="add_group_success">Add group success !</string>
     <string name="group_not_found">Group not found.</string>
+
+    <!-- GroupList -->
 </resources>

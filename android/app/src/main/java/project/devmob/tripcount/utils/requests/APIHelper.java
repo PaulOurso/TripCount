@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.volley.Request;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class APIHelper {
     public static final String DOMAIN = "http://192.168.1.14:3000/api";
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
-    public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups/findOne";
+    public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
     public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
 
     enum OrderBy { ASC, DESC }
@@ -108,6 +109,9 @@ public class APIHelper {
         Map<String, OrderBy> order = new HashMap<>();
         order.put("create_date", OrderBy.DESC);
         url = orderBy(0, url, order);
+        List<String> includes = new ArrayList<>();
+        includes.add("spendings");
+        url = include(1, url, includes);
         apiRequest.setMethod(Request.Method.GET);
         apiRequest.execute(url);
     }
@@ -123,7 +127,7 @@ public class APIHelper {
     }
 
     public static void findGroupWithToken(Context c, String token, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeObjectOf(), taskComplete);
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeListOf(), taskComplete);
         Map<String, String> where = new HashMap<>();
         where.put("token", token);
         String url = where(0, URL_GROUP_FIND_ONE, where);

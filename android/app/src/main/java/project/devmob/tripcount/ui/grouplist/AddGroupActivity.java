@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.util.Calendar;
+import java.util.List;
 
 import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Account;
@@ -76,15 +77,20 @@ public class AddGroupActivity extends AppCompatActivity {
                             showError(R.id.error_add_group_token, R.string.group_not_found);
                         }
                         else {
-                            Group group = (Group) this.result;
-                            Account account = Preference.getAccount(AddGroupActivity.this);
-                            APIHelper.joinGroup(AddGroupActivity.this, account, group, new TaskComplete<Type>() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(AddGroupActivity.this, R.string.add_group_success, Toast.LENGTH_LONG).show();
-                                    finish();
-                                }
-                            });
+                            List<Group> listGroups = (List<Group>) this.result;
+                            if (listGroups != null && listGroups.size() > 0) {
+                                Group group = listGroups.get(0);
+                                Account account = Preference.getAccount(AddGroupActivity.this);
+                                APIHelper.joinGroup(AddGroupActivity.this, account, group, new TaskComplete<Type>() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(AddGroupActivity.this, R.string.add_group_success, Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                });
+                            }
+                            else
+                                showError(R.id.error_add_group_token, R.string.group_not_found);
                         }
                     }
                 });

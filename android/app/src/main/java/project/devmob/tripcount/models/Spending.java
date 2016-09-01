@@ -14,7 +14,7 @@ import java.util.List;
 public class Spending {
     public String id;
     public String name;
-    public long price;
+    public double price;
     public Date create_date;
     public Debt indebted;
     public LatLng localistation;
