@@ -8,19 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.models.Group;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MapFragment extends Fragment {
 
+    public Group myGroup;
 
     public MapFragment() {
         // Required empty public constructor
     }
 
-    public static MapFragment newInstance() {
-        return new MapFragment();
+    public static MapFragment newInstance(Group group) {
+        MapFragment fragment = new MapFragment();
+        fragment.myGroup=group;
+        return fragment;
     }
 
     @Override

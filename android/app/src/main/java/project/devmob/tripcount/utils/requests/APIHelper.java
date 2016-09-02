@@ -12,16 +12,19 @@ import java.util.Map;
 
 import project.devmob.tripcount.models.Account;
 import project.devmob.tripcount.models.Group;
+import project.devmob.tripcount.models.Spending;
 
 /**
  * Created by Tony Wisniewski on 29/07/2016.
  */
 public class APIHelper {
-    public static final String DOMAIN = "http://192.168.1.14:3000/api";
+    public static final String DOMAIN = "http://192.168.60.1:3000/api";
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
     public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
     public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
+    public static final String URL_SPENDING_FROM_GROUP= DOMAIN + "/groups/%1$s/spendings";
+
 
     enum OrderBy { ASC, DESC }
 
@@ -138,6 +141,16 @@ public class APIHelper {
         APIRequest<Type> apiRequest = new APIRequest<>(c, null, taskComplete);
         String url = String.format(URL_JOIN_GROUP, account.id, group.id);
         apiRequest.setMethod(Request.Method.PUT);
+        apiRequest.execute(url);
+    }
+
+    public static void getSpendingByGroupId(Context c, Group group, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeListOf(), taskComplete);
+        String url = String.format(URL_SPENDING_FROM_GROUP, group.id);
+        Map<String, OrderBy> order = new HashMap<>();
+        order.put("create_date", OrderBy.DESC);
+        url = orderBy(0, url, order);
+        apiRequest.setMethod(Request.Method.GET);
         apiRequest.execute(url);
     }
 }

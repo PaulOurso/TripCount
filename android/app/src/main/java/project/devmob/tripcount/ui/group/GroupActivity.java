@@ -1,5 +1,6 @@
 package project.devmob.tripcount.ui.group;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +19,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.ui.group.fragment.BilanFragment;
 import project.devmob.tripcount.ui.group.fragment.MapFragment;
 import project.devmob.tripcount.ui.group.fragment.SpendingFragment;
+import project.devmob.tripcount.utils.Constant;
 
 public class GroupActivity extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class GroupActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+    private Group myGroup;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -42,6 +47,12 @@ public class GroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+
+        Intent intent = getIntent();
+        myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -52,17 +63,15 @@ public class GroupActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -114,11 +123,11 @@ public class GroupActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case 1:
-                    return MapFragment.newInstance(); //fragment Map
+                    return MapFragment.newInstance(myGroup); //fragment Map
                 case 2:
-                    return BilanFragment.newInstance(); //fragment Bilan
+                    return BilanFragment.newInstance(myGroup); //fragment Bilan
                 default:
-                    return SpendingFragment.newInstance();//default
+                    return SpendingFragment.newInstance(myGroup);//default
             }
         }
 
@@ -140,5 +149,9 @@ public class GroupActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void addSpending(View view) {
+        AddSpendingActivity.show(GroupActivity.this);
     }
 }

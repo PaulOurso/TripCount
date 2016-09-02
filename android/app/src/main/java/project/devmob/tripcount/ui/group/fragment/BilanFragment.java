@@ -8,20 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.models.Group;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BilanFragment extends Fragment {
 
+    private Group myGroup;
 
     public BilanFragment() {
         // Required empty public constructor
     }
 
 
-    public static BilanFragment newInstance() {
-        return new BilanFragment();
+    public static BilanFragment newInstance(Group group) {
+        BilanFragment fragment = new BilanFragment();
+        fragment.myGroup = group;
+        return fragment;
     }
 
     @Override
