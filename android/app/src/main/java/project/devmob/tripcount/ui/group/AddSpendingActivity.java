@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import project.devmob.tripcount.R;
@@ -27,17 +28,28 @@ public class AddSpendingActivity extends AppCompatActivity {
         EditText editNewSpendingCost = (EditText) findViewById(R.id.new_spending_cost);
         EditText editNewSpendingPayer = (EditText) findViewById(R.id.new_spending_payer);
 
-        if(editNewSpendingName.getText().toString().isEmpty() ){
-            Toast.makeText(AddSpendingActivity.this, R.string.add_spending_toast_alert_no_name,Toast.LENGTH_LONG).show();
+        if (editNewSpendingName != null && editNewSpendingCost != null && editNewSpendingPayer != null) {
+            if (editNewSpendingName.getText().toString().isEmpty()) {
+                showError(R.id.add_spending_error_no_name, R.string.add_spending_error_no_name);
+            }
+            if (editNewSpendingCost.getText().toString().isEmpty()) {
+                showError(R.id.add_spending_error_no_cost, R.string.add_spending_error_no_cost);
+            }
+            if(editNewSpendingPayer.getText().toString().isEmpty() ){
+                showError(R.id.add_spending_error_no_payer, R.string.add_spending_error_no_payer);
+            }
+            else {
+
+                finish();
+            }
         }
-        if(editNewSpendingCost.getText().toString().isEmpty() ){
-            Toast.makeText(AddSpendingActivity.this, R.string.add_spending_toast_alert_no_cost,Toast.LENGTH_LONG).show();
-        }
-        if(editNewSpendingPayer.getText().toString().isEmpty() ){
-            Toast.makeText(AddSpendingActivity.this, R.string.add_spending_toast_alert_no_payer,Toast.LENGTH_LONG).show();
-        }
-        else {
-            finish();
+    }
+
+    public void showError(int resTextView, int resMsg) {
+        TextView textViewErr = (TextView) findViewById(resTextView);
+        if (textViewErr != null) {
+            textViewErr.setVisibility(View.VISIBLE);
+            textViewErr.setText(resMsg);
         }
     }
 }

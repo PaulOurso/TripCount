@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.devmob.tripcount.ui.group.BilanFragment">
+    tools:context=".ui.group.fragment.BilanFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

@@ -35,7 +35,6 @@
             android:label="@string/title_activity_group"
             android:theme="@style/AppTheme" />
         <activity android:name=".ui.group.AddSpendingActivity"></activity>
->>>>>>> create and begin view for addSpending
     </application>
 
 </manifest>
