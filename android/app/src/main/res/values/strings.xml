@@ -21,6 +21,7 @@
     <string name="add_token_title">Group\'s token :</string>
     <string name="add_token_hint">Enter a token</string>
     <string name="add_token_button">Join the group</string>
+    <string name="group_not_found">Group not found.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -32,7 +33,8 @@
     <string name="error_http">An error has occurred. Please try again.</string>
     <string name="not_connect">Please connect to perform your action.</string>
     <string name="add_group_success">Add group success !</string>
-    <string name="group_not_found">Group not found.</string>
+    <string name="alert_message_enable_gps">GPS is disabled in your device. Enable it?</string>
+    <string name="alert_action_positive_enable_gps">Enable GPS</string>
 
     <!-- GroupList -->
 
@@ -48,4 +50,5 @@
     <string name="add_spending_error_no_name">Please, enter a spending name</string>
     <string name="add_spending_error_no_cost">Please, enter the cost of your spending</string>
     <string name="add_spending_error_no_payer">Please, enter the payer of your spending</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

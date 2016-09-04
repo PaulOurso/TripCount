@@ -8,6 +8,9 @@ public class Constant {
     public static final int RC_SIGN_IN = 1337;
 
     public static final String INTENT_GROUPLIST_TO_GROUPACTIVITY = "INTENT_GROUPLIST_TO_GROUPACTIVITY";
+    public static final String INTENT_SPENDING = "INTENT_SPENDING";
 
     public enum Page { SPENDING, MAP, BILAN}
+
+    public static final int REQUEST_PERMISSIONS_GPS = 0;
 }
