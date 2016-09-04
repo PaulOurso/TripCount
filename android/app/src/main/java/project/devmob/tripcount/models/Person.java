@@ -12,6 +12,7 @@ import java.util.List;
 public class Person implements Serializable {
     public String id;
     public String name;
+    public List<Spending> spendings;
 
     public static Type typeObjectOf() {
         return new TypeToken<Person>() {

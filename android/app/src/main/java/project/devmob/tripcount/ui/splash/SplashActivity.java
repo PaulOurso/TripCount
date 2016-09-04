@@ -10,7 +10,7 @@ import java.util.TimerTask;
 
 import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Account;
-import project.devmob.tripcount.ui.grouplist.GroupeListActivity;
+import project.devmob.tripcount.ui.grouplist.GroupListActivity;
 import project.devmob.tripcount.ui.login.LoginActivity;
 import project.devmob.tripcount.utils.Constant;
 import project.devmob.tripcount.utils.Preference;
@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
-                                GroupeListActivity.show(SplashActivity.this);
+                                GroupListActivity.show(SplashActivity.this);
                             }
                         }, Constant.SPLASH_TIME);
                     }

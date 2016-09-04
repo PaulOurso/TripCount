@@ -1,6 +1,5 @@
 package project.devmob.tripcount.models;
 
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.reflect.TypeToken;
 
@@ -17,8 +16,9 @@ public class Spending implements Serializable {
     public String name;
     public double price;
     public Date create_date;
-    public Debt indebted;
-    public LatLng localistation;
+    public LatLng position;
+    public Person purchaser;
+    public List<Person> indebted;
 
     public static Type typeObjectOf() {
         return new TypeToken<Spending>() {

@@ -13,6 +13,7 @@ public class Account  implements Serializable {
     public String id;
     public String mail;
     public String access_token;
+    public List<Group> groups;
 
     public static Type typeObjectOf() {
         return new TypeToken<Account>() {

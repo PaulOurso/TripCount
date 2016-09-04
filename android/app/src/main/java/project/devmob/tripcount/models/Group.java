@@ -15,6 +15,7 @@ public class Group implements Serializable {
     public String token;
     public String create_date;
     public List<Spending> spendings;
+    public List<Person> persons;
 
     public double getTotalSpendings() {
         double total = 0.0;

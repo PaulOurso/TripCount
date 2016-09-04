@@ -22,12 +22,12 @@ import project.devmob.tripcount.utils.Preference;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
 
-public class GroupeListActivity extends AppCompatActivity {
+public class GroupListActivity extends AppCompatActivity {
 
     private List<Group> groupList;
     private ListView listViewGroup;
 
-    private static final String TAG = "GroupeListActivity" ;
+    private static final String TAG = "GroupListActivity" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,12 @@ public class GroupeListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Account account = Preference.getAccount(GroupeListActivity.this);
-        APIHelper.getMyGroups(GroupeListActivity.this, account, new TaskComplete<Type>() {
+        Account account = Preference.getAccount(GroupListActivity.this);
+        APIHelper.getMyGroups(GroupListActivity.this, account, new TaskComplete<Type>() {
             @Override
             public void run() {
                 groupList = (List<Group>) this.result;
-                listViewGroup.setAdapter(new AdapterGroupList(GroupeListActivity.this, R.layout.item_group, groupList));
+                listViewGroup.setAdapter(new AdapterGroupList(GroupListActivity.this, R.layout.item_group, groupList));
                 Log.d(TAG, ""+groupList.size());
             }
         });
@@ -54,7 +54,7 @@ public class GroupeListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Group groupSelected = (Group) listViewGroup.getAdapter().getItem(position);
-                Intent intent = new Intent(GroupeListActivity.this, GroupActivity.class);
+                Intent intent = new Intent(GroupListActivity.this, GroupActivity.class);
                 intent.putExtra(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY, groupSelected);
                 startActivity(intent);
             }
@@ -62,10 +62,10 @@ public class GroupeListActivity extends AppCompatActivity {
     }
 
     public static void show(Context context){
-        context.startActivity(new Intent(context, GroupeListActivity.class));
+        context.startActivity(new Intent(context, GroupListActivity.class));
     }
 
     public void addGroup(View view) {
-        AddGroupActivity.show(GroupeListActivity.this);
+        AddGroupActivity.show(GroupListActivity.this);
     }
 }

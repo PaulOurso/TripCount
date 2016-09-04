@@ -86,9 +86,9 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
         mMap = googleMap;
 
         // Add a marker in Paris and move the camera
-        if (spending.localistation != null) {
-            mMap.addMarker(new MarkerOptions().position(spending.localistation).title(spending.name));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(spending.localistation));
+        if (spending.position != null) {
+            mMap.addMarker(new MarkerOptions().position(spending.position).title(spending.name));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(spending.position));
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {

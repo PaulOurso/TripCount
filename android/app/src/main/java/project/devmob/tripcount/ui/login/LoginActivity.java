@@ -21,7 +21,7 @@ import java.util.List;
 
 import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Account;
-import project.devmob.tripcount.ui.grouplist.GroupeListActivity;
+import project.devmob.tripcount.ui.grouplist.GroupListActivity;
 import project.devmob.tripcount.utils.Constant;
 import project.devmob.tripcount.utils.Preference;
 import project.devmob.tripcount.utils.requests.APIHelper;
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void next() {
-        GroupeListActivity.show(LoginActivity.this);
+        GroupListActivity.show(LoginActivity.this);
         finish();
     }
 
