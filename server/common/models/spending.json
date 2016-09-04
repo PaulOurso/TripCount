@@ -36,7 +36,7 @@
     },
     "indebted": {
       "type": "hasMany",
-      "model": "debt",
+      "model": "person",
       "foreignKey": "spending_indebted"
     }
   },
