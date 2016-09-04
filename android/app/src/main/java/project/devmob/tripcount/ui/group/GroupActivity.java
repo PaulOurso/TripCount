@@ -1,5 +1,6 @@
 package project.devmob.tripcount.ui.group;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.ui.group.fragment.BilanFragment;
 import project.devmob.tripcount.ui.group.fragment.MapFragment;
 import project.devmob.tripcount.ui.group.fragment.SpendingFragment;
+import project.devmob.tripcount.ui.grouplist.GroupListActivity;
 import project.devmob.tripcount.utils.Constant;
 
 public class GroupActivity extends AppCompatActivity {
@@ -70,6 +72,12 @@ public class GroupActivity extends AppCompatActivity {
         super.onResume();
 
 
+    }
+
+    public static void show(Context context, Group groupSelected) {
+        Intent intent = new Intent(context, GroupActivity.class);
+        intent.putExtra(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY, groupSelected);
+        context.startActivity(intent);
     }
 
     /**

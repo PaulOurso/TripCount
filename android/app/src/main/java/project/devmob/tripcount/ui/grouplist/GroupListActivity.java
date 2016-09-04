@@ -54,9 +54,7 @@ public class GroupListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Group groupSelected = (Group) listViewGroup.getAdapter().getItem(position);
-                Intent intent = new Intent(GroupListActivity.this, GroupActivity.class);
-                intent.putExtra(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY, groupSelected);
-                startActivity(intent);
+                GroupActivity.show(GroupListActivity.this, groupSelected);
             }
         });
     }
