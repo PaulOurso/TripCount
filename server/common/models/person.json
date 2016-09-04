@@ -14,13 +14,6 @@
     }
   },
   "validations": [],
-  "relations": {
-    "spendings": {
-      "type": "hasMany",
-      "model": "spending",
-      "foreignKey": "person_spending"
-    }
-  },
   "acls": [],
   "methods": {}
 }
