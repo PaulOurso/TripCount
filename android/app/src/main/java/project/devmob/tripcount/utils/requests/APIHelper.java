@@ -19,9 +19,9 @@ import project.devmob.tripcount.models.Spending;
  */
 public class APIHelper {
     // Localhost
-    public static final String DOMAIN = "http://192.168.1.14:3000/api";
+    //public static final String DOMAIN = "http://192.168.1.14:3000/api";
     // Access server
-    //public static final String DOMAIN = "http://tripcount.ddns.net/api";
+    public static final String DOMAIN = "http://tripcount.ddns.net/api";
 
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
