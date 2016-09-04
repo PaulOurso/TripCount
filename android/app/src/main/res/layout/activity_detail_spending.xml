@@ -71,7 +71,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:text="Localisation :" />
 
-        <include layout="@layout/fragment_maps_details_spending" />
+        <include layout="@layout/fragment_map_details_spending" />
     </LinearLayout>
 
 </LinearLayout>
