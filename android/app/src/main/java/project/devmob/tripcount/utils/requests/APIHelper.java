@@ -18,7 +18,11 @@ import project.devmob.tripcount.models.Spending;
  * Created by Tony Wisniewski on 29/07/2016.
  */
 public class APIHelper {
-    public static final String DOMAIN = "http://192.168.60.1:3000/api";
+    // Localhost
+    //public static final String DOMAIN = "http://192.168.1.14:3000/api";
+    // Access server
+    public static final String DOMAIN = "http://tripcount.ddns.net/api";
+
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
     public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
