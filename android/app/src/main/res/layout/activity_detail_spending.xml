@@ -43,7 +43,7 @@
                 android:text="Coût :" />
 
             <TextView
-                android:id="@+id/detail_spending_date"
+                android:id="@+id/detail_spending_indebted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
