@@ -36,9 +36,5 @@
     "public": true,
     "$promise": {},
     "$resolved": true
-  },
-  "debt": {
-    "dataSource": "TripCountDataSource",
-    "public": true
   }
 }
