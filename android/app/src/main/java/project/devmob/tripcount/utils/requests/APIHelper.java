@@ -28,6 +28,7 @@ public class APIHelper {
     public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
     public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
     public static final String URL_SPENDING_FROM_GROUP= DOMAIN + "/groups/%1$s/spendings";
+    public static final String URL_PERSON_FROM_GROUP= DOMAIN + "/groups/%1$s/persons";
 
 
     enum OrderBy { ASC, DESC }
@@ -153,6 +154,16 @@ public class APIHelper {
         String url = String.format(URL_SPENDING_FROM_GROUP, group.id);
         Map<String, OrderBy> order = new HashMap<>();
         order.put("create_date", OrderBy.DESC);
+        url = orderBy(0, url, order);
+        apiRequest.setMethod(Request.Method.GET);
+        apiRequest.execute(url);
+    }
+
+    public static void getPersonByGroup(Context c, Group group, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeListOf(), taskComplete);
+        String url = String.format(URL_PERSON_FROM_GROUP, group.id);
+        Map<String, OrderBy> order = new HashMap<>();
+        order.put("name", OrderBy.ASC);
         url = orderBy(0, url, order);
         apiRequest.setMethod(Request.Method.GET);
         apiRequest.execute(url);
