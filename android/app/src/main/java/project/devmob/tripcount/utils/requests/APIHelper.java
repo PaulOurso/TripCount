@@ -3,6 +3,10 @@ package project.devmob.tripcount.utils.requests;
 import android.content.Context;
 
 import com.android.volley.Request;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -12,6 +16,7 @@ import java.util.Map;
 
 import project.devmob.tripcount.models.Account;
 import project.devmob.tripcount.models.Group;
+import project.devmob.tripcount.models.Person;
 import project.devmob.tripcount.models.Spending;
 
 /**
@@ -24,12 +29,14 @@ public class APIHelper {
     public static final String DOMAIN = "http://tripcount.ddns.net/api";
 
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
-    public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
     public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
+    public static final String URL_CREATE_PERSON= DOMAIN + "/person";
+    public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
     public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
     public static final String URL_SPENDING_FROM_GROUP= DOMAIN + "/groups/%1$s/spendings";
     public static final String URL_PERSON_FROM_GROUP= DOMAIN + "/groups/%1$s/persons";
-
+    public static final String URL_CREATE_SPENDING= DOMAIN + "/groups/%1$s/spendings";
+    public static final String URL_LINK_PERSON_TO_SPENDING= DOMAIN + "/spending/%1$s/indebted";
 
     enum OrderBy { ASC, DESC }
 
@@ -166,6 +173,45 @@ public class APIHelper {
         order.put("name", OrderBy.ASC);
         url = orderBy(0, url, order);
         apiRequest.setMethod(Request.Method.GET);
+        apiRequest.execute(url);
+    }
+
+    public static void createSpending(Context c, Group group,Spending spending, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        String url = String.format(URL_CREATE_SPENDING, group.id);
+        apiRequest.addParam("name", spending.name);
+        apiRequest.addParam("price",String.valueOf(spending.price));
+        apiRequest.addParam("create_date", spending.create_date);
+        JSONObject positionJson = new JSONObject();
+        try {
+            positionJson.put("lat",String.valueOf(spending.position.latitude));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            positionJson.put("lng",String.valueOf(spending.position.longitude));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        apiRequest.addParam("position", positionJson.toString());
+        apiRequest.setMethod(Request.Method.POST);
+        apiRequest.execute(url);
+    }
+
+    public static void createPerson(Context c, Person person, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        String url = URL_CREATE_PERSON;
+        apiRequest.addParam("name", person.name);
+        apiRequest.setMethod(Request.Method.POST);
+        apiRequest.execute(url);
+    }
+
+    public static void linkPersonToSpending(Context c, Spending spending, Person indebted, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        String url = String.format(URL_LINK_PERSON_TO_SPENDING, spending.id);
+        apiRequest.addParam("name", indebted.name);
+        apiRequest.addParam("id", indebted.id);
+        apiRequest.setMethod(Request.Method.POST);
         apiRequest.execute(url);
     }
 }

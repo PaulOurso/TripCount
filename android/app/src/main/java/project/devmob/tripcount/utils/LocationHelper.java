@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
 import project.devmob.tripcount.R;
+import project.devmob.tripcount.ui.group.AddSpendingActivity;
 import project.devmob.tripcount.ui.group.DetailSpendingActivity;
 
 /**
@@ -32,7 +33,7 @@ public class LocationHelper {
         return locationHelper;
     }
 
-    public void createRequest(final Activity act, DetailSpendingActivity callback) {
+    public void createRequest(final Activity act, AddSpendingActivity callback) {
         LocationManager locationManager = (LocationManager) act.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(act, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(act, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(act,
