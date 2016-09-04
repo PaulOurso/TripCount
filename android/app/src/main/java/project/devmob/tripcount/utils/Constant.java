@@ -10,7 +10,7 @@ public class Constant {
     public static final String INTENT_GROUPLIST_TO_GROUPACTIVITY = "INTENT_GROUPLIST_TO_GROUPACTIVITY";
     public static final String INTENT_SPENDING = "INTENT_SPENDING";
 
-    public enum Page { SPENDING, MAP, BILAN}
+    public enum Page { SPENDING, BILAN, MAP }
 
     public static final int REQUEST_PERMISSIONS_GPS = 0;
 }

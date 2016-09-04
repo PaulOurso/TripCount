@@ -50,5 +50,9 @@
     <string name="add_spending_error_no_name">Please, enter a spending name</string>
     <string name="add_spending_error_no_cost">Please, enter the cost of your spending</string>
     <string name="add_spending_error_no_payer">Please, enter the payer of your spending</string>
-    <string name="title_activity_maps">Map</string>
+
+    <!-- GroupActivity -->
+    <string name="fragment_title_tab_spending">Spending</string>
+    <string name="fragment_title_tab_bilan">Bilan</string>
+    <string name="fragment_title_tab_map">Map</string>
 </resources>

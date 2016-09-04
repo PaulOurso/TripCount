@@ -131,9 +131,9 @@ public class GroupActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case 1:
-                    return MapFragment.newInstance(myGroup); //fragment Map
-                case 2:
                     return BilanFragment.newInstance(myGroup); //fragment Bilan
+                case 2:
+                    return MapFragment.newInstance(myGroup); //fragment Map
                 default:
                     return SpendingFragment.newInstance(myGroup);//default
             }
@@ -149,11 +149,11 @@ public class GroupActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Spending";
+                    return getString(R.string.fragment_title_tab_spending);
                 case 1:
-                    return "Map";
+                    return getString(R.string.fragment_title_tab_bilan);
                 case 2:
-                    return "Bilan";
+                    return getString(R.string.fragment_title_tab_map);
             }
             return null;
         }
