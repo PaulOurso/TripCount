@@ -3,7 +3,6 @@ package project.devmob.tripcount.utils.requests;
 import android.content.Context;
 
 import com.android.volley.Request;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -177,18 +176,14 @@ public class APIHelper {
     }
 
     public static void createSpending(Context c, Group group,Spending spending, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeObjectOf(), taskComplete);
         String url = String.format(URL_CREATE_SPENDING, group.id);
         apiRequest.addParam("name", spending.name);
-        apiRequest.addParam("price",String.valueOf(spending.price));
+        apiRequest.addParam("price", String.valueOf(spending.price));
         apiRequest.addParam("create_date", spending.create_date);
         JSONObject positionJson = new JSONObject();
         try {
             positionJson.put("lat", spending.position.latitude);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
             positionJson.put("lng", spending.position.longitude);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -199,7 +194,7 @@ public class APIHelper {
     }
 
     public static void createPerson(Context c, Person person, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Person.typeObjectOf(), taskComplete);
         String url = URL_CREATE_PERSON;
         apiRequest.addParam("name", person.name);
         apiRequest.setMethod(Request.Method.POST);
@@ -207,7 +202,7 @@ public class APIHelper {
     }
 
     public static void linkPersonToSpending(Context c, Spending spending, Person indebted, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeObjectOf(), taskComplete);
+        APIRequest<Type> apiRequest = new APIRequest<>(c, null, taskComplete);
         String url = String.format(URL_LINK_PERSON_TO_SPENDING, spending.id);
         apiRequest.addParam("name", indebted.name);
         apiRequest.addParam("id", indebted.id);
