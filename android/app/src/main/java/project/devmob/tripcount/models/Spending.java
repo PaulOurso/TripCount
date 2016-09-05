@@ -15,7 +15,7 @@ public class Spending implements Serializable {
     public String id;
     public String name;
     public double price;
-    public Date create_date;
+    public String create_date;
     public LatLng position;
     public Person purchaser;
     public List<Person> indebted;

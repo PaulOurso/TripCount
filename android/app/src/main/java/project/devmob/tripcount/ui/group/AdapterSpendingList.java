@@ -26,8 +26,8 @@ public class AdapterSpendingList extends ArrayAdapter<Spending> {
         super(context, resource, objects);
         resId = resource;
         layoutInflater = LayoutInflater.from(context);
-
     }
+
     class ViewHolder {
         TextView hSpendingName;
         TextView hSpendingPrice;
@@ -51,5 +51,4 @@ public class AdapterSpendingList extends ArrayAdapter<Spending> {
 
         return convertView;
     }
-
 }

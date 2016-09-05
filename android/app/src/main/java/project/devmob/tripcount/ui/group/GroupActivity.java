@@ -160,6 +160,6 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     public void addSpending(View view) {
-        AddSpendingActivity.show(GroupActivity.this);
+        AddSpendingActivity.show(GroupActivity.this, myGroup);
     }
 }
