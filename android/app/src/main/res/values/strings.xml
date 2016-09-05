@@ -60,4 +60,5 @@
     <string name="fragment_title_tab_map">Map</string>
     <string name="purchaser">Purchaser :</string>
     <string name="price">Price :</string>
+    <string name="share">Share</string>
 </resources>
