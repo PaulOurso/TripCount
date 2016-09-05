@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ import project.devmob.tripcount.utils.helpers.FormatHelper;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
 
-public class DetailSpendingActivity extends FragmentActivity implements OnMapReadyCallback {
+public class DetailSpendingActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG_LOCATION = "DSA Loc";
 
@@ -46,8 +47,9 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_spending);
         spending_id = (String) getIntent().getExtras().get(Constant.INTENT_SPENDING_ID);
-        if (getActionBar() != null)
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_spending);
         mapFragment.getMapAsync(this);
@@ -81,9 +83,13 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
     public void displayInfos(Spending spending) {
         TextView date = (TextView) findViewById(R.id.detail_spending_date);
         TextView price = (TextView) findViewById(R.id.detail_spending_price);
-        price.setText(String.format(getString(R.string.currency), spending.price));
         Calendar calendar = FormatHelper.formatStringToCal(spending.create_date);
-        date.setText(calendar.get(Calendar.DAY_OF_MONTH)+"/"+(calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.YEAR));
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(spending.name);
+        if (price != null)
+            price.setText(String.format(getString(R.string.currency), spending.price));
+        if (date != null)
+            date.setText(calendar.get(Calendar.DAY_OF_MONTH)+"/"+(calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.YEAR));
         //createItemParticipant(spending.indebteds);
 
         if (spending.position != null) {
