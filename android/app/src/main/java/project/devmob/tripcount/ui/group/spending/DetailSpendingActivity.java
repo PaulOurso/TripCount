@@ -1,4 +1,4 @@
-package project.devmob.tripcount.ui.group;
+package project.devmob.tripcount.ui.group.spending;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -46,8 +46,9 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
 
         // Add a marker and move the camera
         if (spending.position != null) {
-            mMap.addMarker(new MarkerOptions().position(spending.position).title(spending.name));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(spending.position));
+            LatLng latLng = new LatLng(spending.position.lat, spending.position.lng);
+            mMap.addMarker(new MarkerOptions().position(latLng).title(spending.name));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {

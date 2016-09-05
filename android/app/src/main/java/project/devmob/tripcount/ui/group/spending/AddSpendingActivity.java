@@ -1,4 +1,4 @@
-package project.devmob.tripcount.ui.group;
+package project.devmob.tripcount.ui.group.spending;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,16 +16,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.BooleanResult;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +31,6 @@ import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.models.Person;
 import project.devmob.tripcount.models.Spending;
-import project.devmob.tripcount.ui.grouplist.AdapterGroupList;
-import project.devmob.tripcount.ui.grouplist.AddGroupActivity;
 import project.devmob.tripcount.utils.Constant;
 import project.devmob.tripcount.utils.LocationHelper;
 import project.devmob.tripcount.utils.helpers.FormatHelper;
@@ -65,7 +60,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
 
         locationHelper = LocationHelper.getInstance();
         Intent intent = getIntent();
-        myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY);
+        myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUP);
         personMap = new HashMap<>();
         personList = new ArrayList<>();
 
@@ -97,7 +92,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
 
     public static void show(Context context, Group group) {
         Intent intent = new Intent(context, AddSpendingActivity.class);
-        intent.putExtra(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY,group);
+        intent.putExtra(Constant.INTENT_GROUP,group);
         context.startActivity(intent);
     }
 
@@ -121,7 +116,9 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                 mySpending.price = Double.parseDouble(editNewSpendingCost.getText().toString());
                 mySpending.create_date = FormatHelper.formatCalToString(Calendar.getInstance());
                 if(position != null){
-                    mySpending.position = position;
+                    mySpending.position = new Barcode.GeoPoint();
+                    mySpending.position.lat = position.latitude;
+                    mySpending.position.lng = position.longitude;
                 }
                 APIHelper.createSpending(AddSpendingActivity.this, myGroup, mySpending, new TaskComplete<Type>() {
                     @Override

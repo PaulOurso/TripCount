@@ -23,7 +23,7 @@
     },
     "position": {
       "type": "geopoint",
-      "required": true,
+      "required": false,
       "default": {}
     }
   },

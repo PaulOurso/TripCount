@@ -1,4 +1,4 @@
-package project.devmob.tripcount.ui.group;
+package project.devmob.tripcount.ui.group.spending;
 
 import android.content.Context;
 import android.view.LayoutInflater;

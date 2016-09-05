@@ -3,8 +3,6 @@ package project.devmob.tripcount.ui.group;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
@@ -13,18 +11,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.ui.group.fragment.BilanFragment;
 import project.devmob.tripcount.ui.group.fragment.MapFragment;
 import project.devmob.tripcount.ui.group.fragment.SpendingFragment;
-import project.devmob.tripcount.ui.grouplist.GroupListActivity;
+import project.devmob.tripcount.ui.group.spending.AddSpendingActivity;
 import project.devmob.tripcount.utils.Constant;
 
 public class GroupActivity extends AppCompatActivity {
@@ -51,7 +45,7 @@ public class GroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group);
 
         Intent intent = getIntent();
-        myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY);
+        myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUP);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(myGroup.name);
@@ -81,7 +75,7 @@ public class GroupActivity extends AppCompatActivity {
 
     public static void show(Context context, Group groupSelected) {
         Intent intent = new Intent(context, GroupActivity.class);
-        intent.putExtra(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY, groupSelected);
+        intent.putExtra(Constant.INTENT_GROUP, groupSelected);
         context.startActivity(intent);
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.models.Spending;
-import project.devmob.tripcount.ui.group.AdapterSpendingList;
+import project.devmob.tripcount.ui.group.spending.AdapterSpendingList;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
 
@@ -61,7 +61,7 @@ public class SpendingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Spending spendingSelected = (Spending) listViewSpending.getAdapter().getItem(position);
                 /*Intent intent = new Intent(getContext(), DetailSpendingActivity.class);
-                intent.putExtra(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY, spendingSelected);
+                intent.putExtra(Constant.INTENT_GROUP, spendingSelected);
                 startActivity(intent);*/
             }
         });

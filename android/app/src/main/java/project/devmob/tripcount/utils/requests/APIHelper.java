@@ -183,8 +183,8 @@ public class APIHelper {
         apiRequest.addParam("create_date", spending.create_date);
         JSONObject positionJson = new JSONObject();
         try {
-            positionJson.put("lat", spending.position.latitude);
-            positionJson.put("lng", spending.position.longitude);
+            positionJson.put("lat", spending.position.lat);
+            positionJson.put("lng", spending.position.lng);
         } catch (JSONException e) {
             e.printStackTrace();
         }

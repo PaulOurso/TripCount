@@ -13,8 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
 import project.devmob.tripcount.R;
-import project.devmob.tripcount.ui.group.AddSpendingActivity;
-import project.devmob.tripcount.ui.group.DetailSpendingActivity;
+import project.devmob.tripcount.ui.group.spending.AddSpendingActivity;
 
 /**
  * Created by Tony on 02/09/2016.

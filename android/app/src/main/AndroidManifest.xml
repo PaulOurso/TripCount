@@ -49,12 +49,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.group.GroupActivity" />
         </activity>
-        <activity android:name=".ui.group.AddSpendingActivity">
+        <activity android:name=".ui.group.spending.AddSpendingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.group.GroupActivity" />
         </activity>
-        <activity android:name=".ui.group.DetailSpendingActivity">
+        <activity android:name=".ui.group.spending.DetailSpendingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.group.GroupActivity" />

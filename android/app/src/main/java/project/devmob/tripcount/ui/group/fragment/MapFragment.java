@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,26 +69,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         if (mSupportMapFragment != null) {
-            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    if (googleMap != null) {
-                        mMap = googleMap;
-                        googleMap.getUiSettings().setAllGesturesEnabled(true);
-
-                    }
-
-                }
-            });
+            mSupportMapFragment.getMapAsync(this);
         }
         return v;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        // Add a marker in Paris and move the camera
-        refreshMarker();
+        if (googleMap != null) {
+            mMap = googleMap;
+            googleMap.getUiSettings().setAllGesturesEnabled(true);
+            Log.d("MapFragment", "onMapReady");
+            refreshMarker();
+        }
     }
 
     public void refreshMarker() {
@@ -103,7 +97,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 List<Spending> spendings = (List<Spending>) this.result;
                 for (Spending sp : spendings) {
                     if (sp.position != null) {
-                        Marker marker = mMap.addMarker(new MarkerOptions().position(sp.position).title(sp.name));
+                        LatLng latLng = new LatLng(sp.position.lat, sp.position.lng);
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title(sp.name));
                         markers.add(marker);
                     }
                 }
@@ -112,7 +107,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     builder.include(marker.getPosition());
                 }
                 LatLngBounds bounds = builder.build();
-                int padding = 20; // offset from edges of the map in pixels
+                int padding = 100; // offset from edges of the map in pixels
                 CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
                 mMap.moveCamera(cu);
             }

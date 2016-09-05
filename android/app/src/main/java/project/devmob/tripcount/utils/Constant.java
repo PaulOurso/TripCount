@@ -7,7 +7,7 @@ public class Constant {
     public static final long SPLASH_TIME = 3000;
     public static final int RC_SIGN_IN = 1337;
 
-    public static final String INTENT_GROUPLIST_TO_GROUPACTIVITY = "INTENT_GROUPLIST_TO_GROUPACTIVITY";
+    public static final String INTENT_GROUP = "INTENT_GROUP";
     public static final String INTENT_SPENDING = "INTENT_SPENDING";
 
     public enum Page { SPENDING, BILAN, MAP }

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.group.AddSpendingActivity">
+    tools:context=".ui.group.spending.AddSpendingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
 
         <EditText
             android:id="@+id/new_spending_cost"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_spending_cost_hint"
