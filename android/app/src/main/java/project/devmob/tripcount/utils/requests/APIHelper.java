@@ -189,14 +189,16 @@ public class APIHelper {
         apiRequest.addParam("name", spending.name);
         apiRequest.addParam("price", String.valueOf(spending.price));
         apiRequest.addParam("create_date", spending.create_date);
-        JSONObject positionJson = new JSONObject();
-        try {
-            positionJson.put("lat", spending.position.lat);
-            positionJson.put("lng", spending.position.lng);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (spending.position != null) {
+            JSONObject positionJson = new JSONObject();
+            try {
+                positionJson.put("lat", spending.position.lat);
+                positionJson.put("lng", spending.position.lng);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            apiRequest.addParam("position", positionJson.toString());
         }
-        apiRequest.addParam("position", positionJson.toString());
         apiRequest.setMethod(Request.Method.POST);
         apiRequest.execute(url);
     }

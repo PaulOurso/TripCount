@@ -1,10 +1,5 @@
 package project.devmob.tripcount.ui.group.spending;
 
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -92,7 +85,7 @@ public class DetailSpendingActivity extends AppCompatActivity implements OnMapRe
             date.setText(calendar.get(Calendar.DAY_OF_MONTH)+"/"+(calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.YEAR));
         //createItemParticipant(spending.indebteds);
 
-        if (spending.position != null) {
+        if (spending.position != null && spending.position.lat != 0.0 && spending.position.lng != 0.0) {
             LatLng latLng = new LatLng(spending.position.lat, spending.position.lng);
             mMap.addMarker(new MarkerOptions().position(latLng).title(spending.name));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -102,6 +95,9 @@ public class DetailSpendingActivity extends AppCompatActivity implements OnMapRe
                     // Nothing
                 }
             });
+            LinearLayout linearLayoutMap = (LinearLayout) findViewById(R.id.linearlayout_detail_spending_map);
+            if (linearLayoutMap != null)
+                linearLayoutMap.setVisibility(View.VISIBLE);
         }
     }
 

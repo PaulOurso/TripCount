@@ -107,11 +107,53 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        locationHelper.createRequest(AddSpendingActivity.this, AddSpendingActivity.this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Constant.REQUEST_PERMISSIONS_GPS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationHelper.createRequest(AddSpendingActivity.this, AddSpendingActivity.this);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        position = latLng;
+        Log.d(TAG_LOCATION+" onLocation", latLng.toString());
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+        Log.d(TAG_LOCATION+" onStatus", s);
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+        Log.d(TAG_LOCATION+" onProvider", s);
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+        Log.d(TAG_LOCATION+" onProvider", s);
+    }
+
+
     public static void show(Context context, Group group) {
         Intent intent = new Intent(context, AddSpendingActivity.class);
         intent.putExtra(Constant.INTENT_GROUP,group);
         context.startActivity(intent);
     }
+
 
     public void addNewSpending(View view) {
         EditText editNewSpendingName = (EditText) findViewById(R.id.new_spending_name);
@@ -126,8 +168,6 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                 showError(R.id.add_spending_error_no_cost, R.string.add_spending_error_no_cost);
             }
             else {
-
-
                 //create a new spending
                 mySpending.name = editNewSpendingName.getText().toString();
                 mySpending.price = Double.parseDouble(editNewSpendingCost.getText().toString());
@@ -188,7 +228,6 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     }
 
     public void addParticipantToListView(View view) {
-
         EditText editNewParticipantName = (EditText) findViewById(R.id.new_participant_name);
 
         if (editNewParticipantName != null) {
@@ -196,17 +235,18 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
 
                 Person person = new Person();
                 person.name = editNewParticipantName.getText().toString();
-                person.id = "0";
+                person.id = null;
                 personMap.put(person, false);
 
                 createItemParticipant(person);
+                ArrayAdapter<String> arrayAdapter = (ArrayAdapter<String>) spinner.getAdapter();
+                arrayAdapter.add(person.name);
                 editNewParticipantName.setText("");
             }
         }
     }
 
     public void createItemParticipant(final Person person){
-
         LayoutInflater layoutInflater = LayoutInflater.from(this);
 
         LinearLayout item_participant = (LinearLayout) layoutInflater.inflate(R.layout.item_participant,null);
@@ -235,45 +275,4 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
 
         layoutParticipantsList.addView(item_participant);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        locationHelper.createRequest(AddSpendingActivity.this, AddSpendingActivity.this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case Constant.REQUEST_PERMISSIONS_GPS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationHelper.createRequest(AddSpendingActivity.this, AddSpendingActivity.this);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        position = latLng;
-        Log.d(TAG_LOCATION+" onLocation", latLng.toString());
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-        Log.d(TAG_LOCATION+" onStatus", s);
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-        Log.d(TAG_LOCATION+" onProvider", s);
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-        Log.d(TAG_LOCATION+" onProvider", s);
-    }
-
 }
