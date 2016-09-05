@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -54,7 +55,7 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG_LOCATION+" Maps", "Maps Ready");
+        Log.d(TAG_LOCATION + " Maps", "Maps Ready");
         mMap = googleMap;
         APIHelper.getSpending(DetailSpendingActivity.this, spending_id, new TaskComplete<Type>() {
             @Override
@@ -63,6 +64,18 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
                 displayInfos(spending);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void displayInfos(Spending spending) {
