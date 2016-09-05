@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,9 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     private Group myGroup;
     private LocationHelper locationHelper;
     private LatLng position;
+    private List<Person> personList;
+
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +67,29 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         Intent intent = getIntent();
         myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUPLIST_TO_GROUPACTIVITY);
         personMap = new HashMap<>();
+        personList = new ArrayList<>();
+
+        spinner = (Spinner) findViewById(R.id.add_spending_spinner);
 
         APIHelper.getPersonByGroup(AddSpendingActivity.this, myGroup, new TaskComplete<Type>() {
             @Override
             public void run() {
-                List<Person> personList = (List<Person>) this.result;
+
+                LayoutInflater layoutInflater = LayoutInflater.from(AddSpendingActivity.this);
+                personList = (List<Person>) this.result;
                 Log.d(TAG, ""+personList.size());
+
+
 
                 for (Person person: personList) {
                     personMap.put(person, false);
                     createItemParticipant(person);
+
+
+                    LinearLayout item_payer= (LinearLayout) layoutInflater.inflate(R.layout.item_payer,null);
+                    TextView payerName = (TextView) item_payer.findViewById(R.id.item_payer_name);
+                    payerName.setText(person.name);
+                    spinner.addView(item_payer);
                 }
             }
         });
@@ -87,18 +104,14 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     public void addNewSpending(View view) {
         EditText editNewSpendingName = (EditText) findViewById(R.id.new_spending_name);
         EditText editNewSpendingCost = (EditText) findViewById(R.id.new_spending_cost);
-        EditText editNewSpendingPayer = (EditText) findViewById(R.id.new_spending_payer);
         Spending mySpending = new Spending();
 
-        if (editNewSpendingName != null && editNewSpendingCost != null && editNewSpendingPayer != null) {
+        if (editNewSpendingName != null && editNewSpendingCost != null) {
             if (editNewSpendingName.getText().toString().isEmpty()) {
                 showError(R.id.add_spending_error_no_name, R.string.add_spending_error_no_name);
             }
             if (editNewSpendingCost.getText().toString().isEmpty()) {
                 showError(R.id.add_spending_error_no_cost, R.string.add_spending_error_no_cost);
-            }
-            if(editNewSpendingPayer.getText().toString().isEmpty() ){
-                showError(R.id.add_spending_error_no_payer, R.string.add_spending_error_no_payer);
             }
             else {
 

@@ -52,51 +52,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/red"
-            android:gravity="left"
-            android:visibility="gone" />
+            android:gravity="left" />
 
         <EditText
             android:id="@+id/new_spending_cost"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_spending_cost_hint"
-            android:layout_marginBottom="30sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_spending_payer_title"
-            android:gravity="left"
-            android:textSize="20sp"
-            android:paddingBottom="10dp"/>
-
-        <TextView
-            android:id="@+id/add_spending_error_no_payer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:gravity="left"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/new_spending_payer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/add_spending_payer_hint"
             android:layout_marginBottom="30sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/add_spending_participant_list_title"
-                android:gravity="left"
-                android:textSize="20sp"
-                android:paddingBottom="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,6 +87,27 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_spending_payer_title"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:paddingBottom="10dp"/>
+
+        <Spinner
+            android:id="@+id/add_spending_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_spending_participant_list_title"
+            android:gravity="left"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"/>
 
         <TextView
             android:id="@+id/add_spending_error_no_participant"

@@ -50,8 +50,9 @@
     <string name="add_spending_error_no_name">Please, enter a spending name</string>
     <string name="add_spending_error_no_cost">Please, enter the cost of your spending</string>
     <string name="add_spending_error_no_payer">Please, enter the payer of your spending</string>
-    <string name="add_new_participant_hint">Enter a new participant\'s name</string>
+    <string name="add_new_participant_hint">Enter a new person\'s name</string>
     <string name="add_new_participant_button">Done</string>
+    <string name="add_new_payer_hint">If needed, enter a new payer\'s name</string>
 
     <!-- GroupActivity -->
     <string name="fragment_title_tab_spending">Spending</string>
