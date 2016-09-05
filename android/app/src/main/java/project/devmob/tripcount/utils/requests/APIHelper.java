@@ -166,7 +166,7 @@ public class APIHelper {
     }
 
     public static void getPersonByGroup(Context c, Group group, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeListOf(), taskComplete);
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Person.typeListOf(), taskComplete);
         String url = String.format(URL_PERSON_FROM_GROUP, group.id);
         Map<String, OrderBy> order = new HashMap<>();
         order.put("name", OrderBy.ASC);

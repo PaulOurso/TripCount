@@ -30,12 +30,12 @@
   "validations": [],
   "relations": {
     "purchaser": {
-      "type": "hasOne",
+      "type": "hasAndBelongsToMany",
       "model": "person",
       "foreignKey": "purchaser_spending_id"
     },
     "indebted": {
-      "type": "hasMany",
+      "type": "hasAndBelongsToMany",
       "model": "person",
       "foreignKey": "indebted_spending_id"
     }

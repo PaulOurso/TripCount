@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -74,17 +75,19 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                 personList = (List<Person>) this.result;
                 Log.d(TAG, ""+personList.size());
 
-
-
                 for (Person person: personList) {
                     personMap.put(person, false);
                     createItemParticipant(person);
 
-
                     LinearLayout item_payer= (LinearLayout) layoutInflater.inflate(R.layout.item_payer,null);
                     TextView payerName = (TextView) item_payer.findViewById(R.id.item_payer_name);
                     payerName.setText(person.name);
-                    spinner.addView(item_payer);
+                    List<String> listP = new ArrayList<>();
+                    for (Person p: personList) {
+                        listP.add(p.name);
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter(AddSpendingActivity.this, android.R.layout.simple_spinner_item, listP);
+                    spinner.setAdapter(adapter);
                 }
             }
         });
@@ -130,7 +133,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                             Boolean checked = entry.getValue();
 
                             if(checked){
-                                if(person.id == "0"){
+                                if(person.id == null){
                                     //create a new person
                                     APIHelper.createPerson(AddSpendingActivity.this, person, new TaskComplete<Type>() {
                                         @Override
