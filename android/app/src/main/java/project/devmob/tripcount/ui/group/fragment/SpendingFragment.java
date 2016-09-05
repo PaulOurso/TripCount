@@ -60,7 +60,7 @@ public class SpendingFragment extends Fragment {
             @Override
             public void run() {
                 spendingList= (List<Spending>) this.result;
-                listViewSpending.setAdapter(new AdapterSpendingList(getContext(), R.layout.item_group, spendingList));
+                listViewSpending.setAdapter(new AdapterSpendingList(getContext(), R.layout.item_spending, spendingList));
                 Log.d(TAG, ""+spendingList.size());
             }
         });
