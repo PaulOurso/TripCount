@@ -1,5 +1,6 @@
 package project.devmob.tripcount.ui.group.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,8 @@ import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.models.Spending;
 import project.devmob.tripcount.ui.group.spending.AdapterSpendingList;
+import project.devmob.tripcount.ui.group.spending.DetailSpendingActivity;
+import project.devmob.tripcount.utils.Constant;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
 
@@ -60,9 +63,9 @@ public class SpendingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Spending spendingSelected = (Spending) listViewSpending.getAdapter().getItem(position);
-                /*Intent intent = new Intent(getContext(), DetailSpendingActivity.class);
-                intent.putExtra(Constant.INTENT_GROUP, spendingSelected);
-                startActivity(intent);*/
+                Intent intent = new Intent(getContext(), DetailSpendingActivity.class);
+                intent.putExtra(Constant.INTENT_SPENDING_ID, spendingSelected.id);
+                startActivity(intent);
             }
         });
     }

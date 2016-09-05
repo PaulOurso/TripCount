@@ -35,7 +35,8 @@ public class APIHelper {
     public static final String URL_SPENDING_FROM_GROUP= DOMAIN + "/groups/%1$s/spendings";
     public static final String URL_PERSON_FROM_GROUP= DOMAIN + "/groups/%1$s/persons";
     public static final String URL_CREATE_SPENDING= DOMAIN + "/groups/%1$s/spendings";
-    public static final String URL_LINK_PERSON_TO_SPENDING= DOMAIN + "/spending/%1$s/indebted";
+    public static final String URL_LINK_PERSON_TO_SPENDING= DOMAIN + "/spending/%1$s/indebted/rel/%2$s";
+    public static final String URL_SPENDING = DOMAIN + "/spending/%1$s";
 
     enum OrderBy { ASC, DESC }
 
@@ -69,8 +70,8 @@ public class APIHelper {
             for (String include : listIncludes) {
                 if (i > 0 || indexFilter > 0)
                     url += "&";
-                url += "filter[include]";
-                url += "=" + include;
+                url += "filter[include]=";
+                url += include;
                 i++;
             }
         }
@@ -175,6 +176,13 @@ public class APIHelper {
         apiRequest.execute(url);
     }
 
+    public static void getSpending(Context c, String spendingId, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeObjectOf(), taskComplete);
+        String url = String.format(URL_SPENDING, spendingId);
+        apiRequest.setMethod(Request.Method.GET);
+        apiRequest.execute(url);
+    }
+
     public static void createSpending(Context c, Group group,Spending spending, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeObjectOf(), taskComplete);
         String url = String.format(URL_CREATE_SPENDING, group.id);
@@ -201,12 +209,12 @@ public class APIHelper {
         apiRequest.execute(url);
     }
 
-    public static void linkPersonToSpending(Context c, Spending spending, Person indebted, TaskComplete<Type> taskComplete) {
+    public static void linkPersonToSpending(Context c, Spending spending, Person person, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, null, taskComplete);
-        String url = String.format(URL_LINK_PERSON_TO_SPENDING, spending.id);
-        apiRequest.addParam("name", indebted.name);
-        apiRequest.addParam("id", indebted.id);
-        apiRequest.setMethod(Request.Method.POST);
+        String url = String.format(URL_LINK_PERSON_TO_SPENDING, spending.id, person.id);
+        apiRequest.addParam("spendingId", spending.id);
+        apiRequest.addParam("personId", person.id);
+        apiRequest.setMethod(Request.Method.PUT);
         apiRequest.execute(url);
     }
 }

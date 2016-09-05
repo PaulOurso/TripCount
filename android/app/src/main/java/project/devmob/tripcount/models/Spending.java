@@ -1,12 +1,10 @@
 package project.devmob.tripcount.models;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,8 +16,6 @@ public class Spending implements Serializable {
     public double price;
     public String create_date;
     public Barcode.GeoPoint position;
-    public Person purchaser;
-    public List<Person> indebted;
 
     public static Type typeObjectOf() {
         return new TypeToken<Spending>() {

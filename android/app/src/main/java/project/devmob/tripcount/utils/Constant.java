@@ -9,6 +9,7 @@ public class Constant {
 
     public static final String INTENT_GROUP = "INTENT_GROUP";
     public static final String INTENT_SPENDING = "INTENT_SPENDING";
+    public static final String INTENT_SPENDING_ID = "INTENT_SPENDING_ID";
 
     public enum Page { SPENDING, BILAN, MAP }
 

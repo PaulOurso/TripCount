@@ -28,12 +28,12 @@
     "spendings": {
       "type": "hasMany",
       "model": "spending",
-      "foreignKey": "group_id"
+      "foreignKey": "group_spending_id"
     },
     "persons": {
       "type": "hasMany",
       "model": "person",
-      "foreignKey": "group_id"
+      "foreignKey": "group_person_id"
     }
   },
   "acls": [],

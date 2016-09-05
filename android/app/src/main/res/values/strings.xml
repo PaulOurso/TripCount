@@ -58,4 +58,6 @@
     <string name="fragment_title_tab_spending">Spending</string>
     <string name="fragment_title_tab_bilan">Bilan</string>
     <string name="fragment_title_tab_map">Map</string>
+    <string name="purchaser">Purchaser :</string>
+    <string name="price">Price :</string>
 </resources>
