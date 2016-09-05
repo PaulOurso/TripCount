@@ -87,7 +87,8 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                     for (Person p: personList) {
                         listP.add(p.name);
                     }
-                    ArrayAdapter adapter = new ArrayAdapter(AddSpendingActivity.this, android.R.layout.simple_spinner_item, listP);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(AddSpendingActivity.this, android.R.layout.simple_spinner_item, listP);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
                 }
             }
@@ -211,10 +212,16 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         LinearLayout item_participant = (LinearLayout) layoutInflater.inflate(R.layout.item_participant,null);
         LinearLayout layoutParticipantsList = (LinearLayout) findViewById(R.id.linearlayout_participants_list);
 
-        CheckBox participantCheckBox = (CheckBox) item_participant.findViewById(R.id.item_participant_checkbox);
+        final CheckBox participantCheckBox = (CheckBox) item_participant.findViewById(R.id.item_participant_checkbox);
         TextView participantsName = (TextView) item_participant.findViewById(R.id.item_participant_name);
 
         participantsName.setText(person.name);
+        participantsName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                participantCheckBox.setChecked(!participantCheckBox.isChecked());
+            }
+        });
         participantCheckBox.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
                    @Override
