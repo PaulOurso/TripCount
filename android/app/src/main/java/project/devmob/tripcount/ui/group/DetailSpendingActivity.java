@@ -35,7 +35,7 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_spending);
         mapFragment.getMapAsync(this);
     }
 
@@ -44,7 +44,7 @@ public class DetailSpendingActivity extends FragmentActivity implements OnMapRea
         Log.d(TAG_LOCATION+" Maps", "Maps Ready");
         mMap = googleMap;
 
-        // Add a marker in Paris and move the camera
+        // Add a marker and move the camera
         if (spending.position != null) {
             mMap.addMarker(new MarkerOptions().position(spending.position).title(spending.name));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(spending.position));

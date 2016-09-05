@@ -7,9 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="@string/google_maps_key" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +14,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".ui.splash.SplashActivity"
             android:noHistory="true"
@@ -35,13 +36,29 @@
             android:label="@string/title_activity_group_list" />
         <activity
             android:name=".ui.group.GroupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.grouplist.GroupListActivity" />
+        </activity>
         <activity
             android:name=".ui.grouplist.AddGroupActivity"
-            android:label="@string/title_activity_group"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".ui.group.AddSpendingActivity" />
-        <activity android:name=".ui.group.DetailSpendingActivity" />
+            android:label="@string/title_activity_add_group"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.group.GroupActivity" />
+        </activity>
+        <activity android:name=".ui.group.AddSpendingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.group.GroupActivity" />
+        </activity>
+        <activity android:name=".ui.group.DetailSpendingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.group.GroupActivity" />
+        </activity>
     </application>
 
 </manifest>

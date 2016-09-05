@@ -155,7 +155,7 @@ public class APIHelper {
         apiRequest.execute(url);
     }
 
-    public static void getSpendingByGroupId(Context c, Group group, TaskComplete<Type> taskComplete) {
+    public static void getSpendingsByGroupId(Context c, Group group, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeListOf(), taskComplete);
         String url = String.format(URL_SPENDING_FROM_GROUP, group.id);
         Map<String, OrderBy> order = new HashMap<>();

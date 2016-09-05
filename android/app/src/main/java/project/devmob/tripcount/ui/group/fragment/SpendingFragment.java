@@ -1,6 +1,5 @@
 package project.devmob.tripcount.ui.group.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -19,11 +16,6 @@ import project.devmob.tripcount.R;
 import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.models.Spending;
 import project.devmob.tripcount.ui.group.AdapterSpendingList;
-import project.devmob.tripcount.ui.group.AddSpendingActivity;
-import project.devmob.tripcount.ui.group.GroupActivity;
-import project.devmob.tripcount.ui.grouplist.AdapterGroupList;
-import project.devmob.tripcount.ui.grouplist.AddGroupActivity;
-import project.devmob.tripcount.utils.Constant;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
 
@@ -55,7 +47,7 @@ public class SpendingFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        APIHelper.getSpendingByGroupId(getContext(), myGroup, new TaskComplete<Type>() {
+        APIHelper.getSpendingsByGroupId(getContext(), myGroup, new TaskComplete<Type>() {
 
             @Override
             public void run() {
