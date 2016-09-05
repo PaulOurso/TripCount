@@ -90,10 +90,11 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     private void shareGroup() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        //intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, myGroup.token);
-        startActivity(intent);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.message_token_is), myGroup.token));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share_title_popin)));
     }
 
     public static void show(Context context, Group groupSelected) {
