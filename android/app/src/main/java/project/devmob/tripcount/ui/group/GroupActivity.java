@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import project.devmob.tripcount.R;
@@ -48,7 +51,8 @@ public class GroupActivity extends AppCompatActivity {
         myGroup = (Group) intent.getExtras().get(Constant.INTENT_GROUP);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(myGroup.name);
+        if (toolbar != null)
+            toolbar.setTitle(myGroup.name);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null)
@@ -60,17 +64,37 @@ public class GroupActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        if (mViewPager != null)
+            mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        if (tabLayout != null)
+            tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_group_activity, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_share_group:
+                shareGroup();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void shareGroup() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.message_token_is), myGroup.token));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share_title_popin)));
     }
 
     public static void show(Context context, Group groupSelected) {
