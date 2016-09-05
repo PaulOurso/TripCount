@@ -30,14 +30,14 @@
   "validations": [],
   "relations": {
     "purchaser": {
-      "type": "hasAndBelongsToMany",
+      "type": "hasOne",
       "model": "person",
-      "foreignKey": "purchaser_spending_id"
+      "foreignKey": "id"
     },
     "indebted": {
       "type": "hasAndBelongsToMany",
       "model": "person",
-      "foreignKey": "indebted_spending_id"
+      "foreignKey": "id"
     }
   },
   "acls": [],

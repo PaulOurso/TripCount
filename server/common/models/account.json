@@ -23,7 +23,7 @@
     "groups": {
       "type": "hasAndBelongsToMany",
       "model": "group",
-      "foreignKey": "account_group"
+      "foreignKey": "id"
     }
   },
   "acls": [],
