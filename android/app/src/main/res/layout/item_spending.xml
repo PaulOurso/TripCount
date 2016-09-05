@@ -20,7 +20,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:text="60€"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:gravity="center"
         />
 </LinearLayout>

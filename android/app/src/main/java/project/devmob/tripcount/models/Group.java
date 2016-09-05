@@ -14,9 +14,9 @@ public class Group implements Serializable {
     public String name;
     public String token;
     public String create_date;
-    public List<Spending> spendings;
+    //public List<Spending> spendings;
 
-    public double getTotalSpendings() {
+    /*public double getTotalSpendings() {
         double total = 0.0;
         if (spendings == null)
             return total;
@@ -26,7 +26,7 @@ public class Group implements Serializable {
             }
         }
         return total;
-    }
+    }*/
 
     public static Type typeObjectOf() {
         return new TypeToken<Group>() {

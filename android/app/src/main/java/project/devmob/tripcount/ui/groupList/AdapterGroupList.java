@@ -28,7 +28,7 @@ public class AdapterGroupList extends ArrayAdapter<Group> {
 
     class ViewHolder {
         TextView hGroupName;
-        TextView hGroupTotal;
+        //TextView hGroupTotal;
     }
 
     @Override
@@ -38,14 +38,14 @@ public class AdapterGroupList extends ArrayAdapter<Group> {
             convertView = layoutInflater.inflate(resId, null);
             vHolder = new ViewHolder();
             vHolder.hGroupName = (TextView) convertView.findViewById(R.id.item_groupe_name);
-            vHolder.hGroupTotal = (TextView) convertView.findViewById(R.id.item_groupe_total);
+            //vHolder.hGroupTotal = (TextView) convertView.findViewById(R.id.item_groupe_total);
             convertView.setTag(vHolder);
         }
         else
             vHolder = (ViewHolder) convertView.getTag();
         Group group = getItem(position);
         vHolder.hGroupName.setText(group.name);
-        vHolder.hGroupTotal.setText(String.format(getContext().getString(R.string.currency), group.getTotalSpendings()));
+        //vHolder.hGroupTotal.setText(String.format(getContext().getString(R.string.currency), group.getTotalSpendings()));
 
         return convertView;
     }
