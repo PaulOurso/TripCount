@@ -21,10 +21,13 @@
       "required": true,
       "default": ""
     },
-    "position": {
-      "type": "geopoint",
-      "required": false,
-      "default": {}
+    "latitude": {
+      "type": "number",
+      "default": 0.0
+    },
+    "longitude": {
+      "type": "number",
+      "default": 0.0
     }
   },
   "validations": [],
