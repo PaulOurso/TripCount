@@ -35,12 +35,11 @@
     "purchaser": {
       "type": "hasOne",
       "model": "person",
-      "foreignKey": "id"
+      "foreignKey": "spending_purchaser_id"
     },
     "indebted": {
       "type": "hasAndBelongsToMany",
-      "model": "person",
-      "foreignKey": "id"
+      "model": "person"
     }
   },
   "acls": [],

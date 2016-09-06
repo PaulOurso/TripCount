@@ -22,8 +22,7 @@
   "relations": {
     "groups": {
       "type": "hasAndBelongsToMany",
-      "model": "group",
-      "foreignKey": "id"
+      "model": "group"
     }
   },
   "acls": [],
