@@ -13,11 +13,8 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -96,9 +93,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void run() {
                 List<Spending> spendings = (List<Spending>) this.result;
                 for (Spending sp : spendings) {
-                    if (sp.position != null) {
-                        LatLng latLng = new LatLng(sp.position.lat, sp.position.lng);
-                        Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title(sp.name));
+                    if (sp.latitude != 0.0 && sp.longitude != 0.0) {
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(sp.getLatLng()).title(sp.name));
                         markers.add(marker);
                     }
                 }
