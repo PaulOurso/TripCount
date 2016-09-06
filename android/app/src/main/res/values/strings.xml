@@ -53,6 +53,9 @@
     <string name="add_new_participant_hint">Enter a new person\'s name</string>
     <string name="add_new_participant_button">Done</string>
     <string name="add_new_payer_hint">If needed, enter a new payer\'s name</string>
+    <string name="missing_purchaser_select">Error : select a purchaser.</string>
+    <string name="missing_indebted_select">Error : Select participants.</string>
+    <string name="add_spending_success">Add spending success.</string>
 
     <!-- GroupActivity -->
     <string name="fragment_title_tab_spending">Spending</string>

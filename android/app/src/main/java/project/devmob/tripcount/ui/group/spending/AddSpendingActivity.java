@@ -18,9 +18,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.vision.barcode.Barcode;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -71,7 +71,6 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         APIHelper.getPersonByGroup(AddSpendingActivity.this, myGroup, new TaskComplete<Type>() {
             @Override
             public void run() {
-
                 LayoutInflater layoutInflater = LayoutInflater.from(AddSpendingActivity.this);
                 personList = (List<Person>) this.result;
                 Log.d(TAG, ""+personList.size());
@@ -83,13 +82,11 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                     LinearLayout item_payer= (LinearLayout) layoutInflater.inflate(R.layout.item_payer,null);
                     TextView payerName = (TextView) item_payer.findViewById(R.id.item_payer_name);
                     payerName.setText(person.name);
-                    List<String> listP = new ArrayList<>();
-                    for (Person p: personList) {
-                        listP.add(p.name);
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(AddSpendingActivity.this, android.R.layout.simple_spinner_item, listP);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner.setAdapter(adapter);
+
+                    ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(AddSpendingActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>());
+                    adapterSpinner.addAll(getListNamePersons(personList));
+                    adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapterSpinner);
                 }
             }
         });
@@ -147,6 +144,13 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         Log.d(TAG_LOCATION+" onProvider", s);
     }
 
+    public List<String> getListNamePersons(List<Person> list) {
+        List<String> listP = new ArrayList<>();
+        for (Person p: personList) {
+            listP.add(p.name);
+        }
+        return listP;
+    }
 
     public static void show(Context context, Group group) {
         Intent intent = new Intent(context, AddSpendingActivity.class);
@@ -154,70 +158,6 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         context.startActivity(intent);
     }
 
-
-    public void addNewSpending(View view) {
-        EditText editNewSpendingName = (EditText) findViewById(R.id.new_spending_name);
-        EditText editNewSpendingCost = (EditText) findViewById(R.id.new_spending_cost);
-        Spending mySpending = new Spending();
-
-        if (editNewSpendingName != null && editNewSpendingCost != null) {
-            if (editNewSpendingName.getText().toString().isEmpty()) {
-                showError(R.id.add_spending_error_no_name, R.string.add_spending_error_no_name);
-            }
-            if (editNewSpendingCost.getText().toString().isEmpty()) {
-                showError(R.id.add_spending_error_no_cost, R.string.add_spending_error_no_cost);
-            }
-            else {
-                //create a new spending
-                mySpending.name = editNewSpendingName.getText().toString();
-                mySpending.price = Double.parseDouble(editNewSpendingCost.getText().toString());
-                mySpending.create_date = FormatHelper.formatCalToString(Calendar.getInstance());
-                if(position != null){
-                    mySpending.position = new Barcode.GeoPoint();
-                    mySpending.position.lat = position.latitude;
-                    mySpending.position.lng = position.longitude;
-                }
-                APIHelper.createSpending(AddSpendingActivity.this, myGroup, mySpending, new TaskComplete<Type>() {
-                    @Override
-                    public void run() {
-                        final Spending spending = (Spending) this.result;
-
-                        for (Map.Entry<Person,Boolean> entry: personMap.entrySet()) {
-                            final Person person= entry.getKey();
-                            Boolean checked = entry.getValue();
-
-                            if(checked){
-                                if(person.id == null){
-                                    //create a new person
-                                    APIHelper.createPerson(AddSpendingActivity.this, person, new TaskComplete<Type>() {
-                                        @Override
-                                        public void run() {
-                                            Person person = (Person) this.result;
-
-                                            linkSpendingToPerson(spending,person);
-                                        }
-                                    });
-                                }
-                                else{
-                                    linkSpendingToPerson(spending, person);
-                                }
-                            }
-                        }
-                    }
-                });
-
-                finish();
-            }
-        }
-    }
-
-    public void linkSpendingToPerson(Spending spending, Person person){
-        APIHelper.linkPersonToSpending(AddSpendingActivity.this, spending, person,new TaskComplete<Type>() {
-            @Override
-            public void run() {
-            }
-        });
-    }
 
     public void showError(int resTextView, int resMsg) {
         TextView textViewErr = (TextView) findViewById(resTextView);
@@ -239,9 +179,13 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                 personMap.put(person, false);
 
                 createItemParticipant(person);
-                ArrayAdapter<String> arrayAdapter = (ArrayAdapter<String>) spinner.getAdapter();
-                arrayAdapter.add(person.name);
+                personList.add(person);
                 editNewParticipantName.setText("");
+
+                ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(AddSpendingActivity.this, android.R.layout.simple_spinner_item, new ArrayList<String>());
+                adapterSpinner.addAll(getListNamePersons(personList));
+                adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapterSpinner);
             }
         }
     }
@@ -259,20 +203,134 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         participantsName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                participantCheckBox.setChecked(!participantCheckBox.isChecked());
+                if (isNotPurchaserSelected(person)) {
+                    boolean checkStatus = !participantCheckBox.isChecked();
+                    participantCheckBox.setChecked(checkStatus);
+                    personMap.put(person, checkStatus);
+                }
             }
         });
         participantCheckBox.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
-                   @Override
-                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                       Log.d(TAG, ""+isChecked);
-
-                       personMap.put(person, isChecked);
-                   }
-               }
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        Log.d(TAG, ""+isChecked);
+                        if (isNotPurchaserSelected(person))
+                            personMap.put(person, isChecked);
+                        else {
+                            buttonView.setChecked(false);
+                            personMap.put(person, false);
+                        }
+                    }
+                }
         );
 
         layoutParticipantsList.addView(item_participant);
+    }
+
+    public boolean isNotPurchaserSelected(Person personSelected) {
+        int spinnerPosSelected = spinner.getSelectedItemPosition();
+        return spinnerPosSelected < personList.size() && personSelected != personList.get(spinnerPosSelected);
+    }
+
+    public void addNewSpending(View view) {
+        EditText editNewSpendingName = (EditText) findViewById(R.id.new_spending_name);
+        EditText editNewSpendingCost = (EditText) findViewById(R.id.new_spending_cost);
+        Spending mySpending = new Spending();
+        if (mySpending.indebted == null)
+            mySpending.indebted = new ArrayList<>();
+
+        if (editNewSpendingName != null && editNewSpendingCost != null) {
+            if (editNewSpendingName.getText().toString().isEmpty()) {
+                showError(R.id.add_spending_error_no_name, R.string.add_spending_error_no_name);
+            }
+            if (editNewSpendingCost.getText().toString().isEmpty()) {
+                showError(R.id.add_spending_error_no_cost, R.string.add_spending_error_no_cost);
+            }
+            else {
+                //create a new spending
+                if (spinner.getSelectedItemPosition() < personList.size())
+                    mySpending.purchaser = personList.get(spinner.getSelectedItemPosition());
+
+                if (mySpending.purchaser == null) {
+                    Toast.makeText(AddSpendingActivity.this, R.string.missing_purchaser_select, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                mySpending.name = editNewSpendingName.getText().toString();
+                mySpending.price = Double.parseDouble(editNewSpendingCost.getText().toString());
+                mySpending.create_date = FormatHelper.formatCalToString(Calendar.getInstance());
+                if(position != null){
+                    mySpending.latitude = position.latitude;
+                    mySpending.longitude = position.longitude;
+                }
+
+                mySpending.indebted.clear();
+                for (Map.Entry<Person,Boolean> entry: personMap.entrySet()) {
+                    final Person person = entry.getKey();
+                    boolean checked = entry.getValue();
+                    if (checked) {
+                        mySpending.indebted.add(person);
+                    }
+                }
+                if (mySpending.indebted.size() == 0) {
+                    Toast.makeText(AddSpendingActivity.this, R.string.missing_indebted_select, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                // First : Purchaser Person if necessary
+                // Second : Spending with purchaser
+                // Third : Indebted Person if necessary
+                // Four : Link indebted Person <-> Spending
+                if (mySpending.purchaser.id == null)
+                    launchCreatePurchaser(mySpending);
+                else
+                    launchCreateSpending(mySpending);
+            }
+        }
+    }
+
+    private void launchCreatePurchaser(final Spending mySpending) {
+        APIHelper.createPerson(AddSpendingActivity.this, myGroup, mySpending.purchaser, new TaskComplete<Type>() {
+            @Override
+            public void run() {
+                mySpending.purchaser = (Person) this.result;
+                launchCreateSpending(mySpending);
+            }
+        });
+    }
+
+    private void launchCreateSpending(final Spending mySpending) {
+        APIHelper.createSpending(AddSpendingActivity.this, myGroup, mySpending, new TaskComplete<Type>() {
+            @Override
+            public void run() {
+                final Spending spending = (Spending) this.result;
+
+                for (Person p: spending.indebted) {
+                    if (p.id == null)
+                        launchCreatePersonIndebted(mySpending, p);
+                    else
+                        launchLinkSpendingToPerson(mySpending, p);
+                }
+            }
+        });
+    }
+
+    private void launchCreatePersonIndebted(final Spending mySpending, Person person) {
+        APIHelper.createPerson(AddSpendingActivity.this, myGroup, person, new TaskComplete<Type>() {
+            @Override
+            public void run() {
+                Person personResult = (Person) this.result;
+                launchLinkSpendingToPerson(mySpending, personResult);
+            }
+        });
+    }
+
+    private void launchLinkSpendingToPerson(Spending mySpending, Person person){
+        APIHelper.linkPersonToSpending(AddSpendingActivity.this, mySpending, person,new TaskComplete<Type>() {
+            @Override
+            public void run() {
+                Toast.makeText(AddSpendingActivity.this, R.string.add_spending_success, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 }
