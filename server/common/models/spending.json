@@ -13,12 +13,10 @@
     },
     "price": {
       "type": "number",
-      "required": true,
       "default": 0
     },
     "create_date": {
       "type": "date",
-      "required": true,
       "default": ""
     },
     "latitude": {

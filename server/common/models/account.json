@@ -9,12 +9,10 @@
   "properties": {
     "mail": {
       "type": "string",
-      "required": true,
       "index": true
     },
     "access_token": {
       "type": "string",
-      "required": true,
       "index": true
     }
   },

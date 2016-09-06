@@ -9,17 +9,14 @@
   },
   "properties": {
     "name": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "token": {
       "type": "string",
-      "required": true,
       "index": true
     },
     "create_date": {
       "type": "date",
-      "required": true,
       "default": ""
     }
   },
