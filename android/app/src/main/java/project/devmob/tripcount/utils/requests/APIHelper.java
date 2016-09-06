@@ -33,6 +33,7 @@ public class APIHelper {
     public static final String URL_CREATE_SPENDING = DOMAIN + "/spending";
     public static final String URL_LINK_PERSON_TO_SPENDING = DOMAIN + "/spending/%1$s/indebted/rel/%2$s";
     public static final String URL_SPENDING = DOMAIN + "/spending/%1$s";
+    public static final String URL_PERSON_INCLUDE_SPENDING_FROM_GROUP = DOMAIN + "/groups/%1$s/persons";
 
     enum OrderBy { ASC, DESC }
 
@@ -220,4 +221,18 @@ public class APIHelper {
         apiRequest.setMethod(Request.Method.PUT);
         apiRequest.execute(url);
     }
+
+    public static void getPersonAndSpendingByGroup (Context c, Group group, TaskComplete<Type> taskComplete) {
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeListOf(), taskComplete);
+        String url = String.format(URL_PERSON_INCLUDE_SPENDING_FROM_GROUP, group.id);
+        Map<String, OrderBy> order = new HashMap<>();
+        order.put("name", OrderBy.ASC);
+        url = orderBy(0, url, order);
+        List<String> includes = new ArrayList<>();
+        includes.add("spending");
+        url = include(1, url, includes);
+        apiRequest.setMethod(Request.Method.GET);
+        apiRequest.execute(url);
+    }
+
 }

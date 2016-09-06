@@ -36,6 +36,7 @@ public class BilanFragment extends Fragment {
 
     private Group myGroup;
     private List<Person> personList;
+    private List<Spending> spendingList;
 
     public BilanFragment() {
         // Required empty public constructor
@@ -60,12 +61,21 @@ public class BilanFragment extends Fragment {
             @Override
             public void run() {
 
-
                 personList = (List<Person>) this.result;
                 Log.d(TAG, ""+personList.size());
 
-                for (Person person: personList) {
-                    createItemBilan(person);
+
+            }
+        });
+
+        APIHelper.getSpendingsByGroupId(getContext(),myGroup,new TaskComplete<Type>() {
+            @Override
+            public void run() {
+
+                spendingList = (List<Spending>) this.result;
+                Log.d(TAG, ""+spendingList.size());
+
+                for (Spending spending: spendingList) {
 
                 }
             }
