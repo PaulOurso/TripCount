@@ -1,10 +1,13 @@
 package project.devmob.tripcount.ui.group.spending;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,10 +42,10 @@ import project.devmob.tripcount.utils.helpers.FormatHelper;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
 
-public class AddSpendingActivity extends AppCompatActivity implements android.location.LocationListener{
+public class AddSpendingActivity extends AppCompatActivity implements android.location.LocationListener {
 
     private static final String TAG_LOCATION = "ASA Loc";
-    private static final String TAG = "AddSpendingActivity" ;
+    private static final String TAG = "AddSpendingActivity";
 
     private HashMap<Person, Boolean> personMap;
     private Group myGroup;
@@ -73,13 +76,13 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
             public void run() {
                 LayoutInflater layoutInflater = LayoutInflater.from(AddSpendingActivity.this);
                 personList = (List<Person>) this.result;
-                Log.d(TAG, ""+personList.size());
+                Log.d(TAG, "" + personList.size());
 
-                for (Person person: personList) {
+                for (Person person : personList) {
                     personMap.put(person, false);
                     createItemParticipant(person);
 
-                    LinearLayout item_payer= (LinearLayout) layoutInflater.inflate(R.layout.item_payer,null);
+                    LinearLayout item_payer = (LinearLayout) layoutInflater.inflate(R.layout.item_payer, null);
                     TextView payerName = (TextView) item_payer.findViewById(R.id.item_payer_name);
                     payerName.setText(person.name);
 
@@ -111,6 +114,12 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        locationHelper.removeRequest(AddSpendingActivity.this);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case Constant.REQUEST_PERMISSIONS_GPS: {
@@ -126,6 +135,8 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         position = latLng;
+        locationHelper.removeRequest(AddSpendingActivity.this);
+
         Log.d(TAG_LOCATION+" onLocation", latLng.toString());
     }
 
@@ -303,12 +314,14 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
             @Override
             public void run() {
                 final Spending spending = (Spending) this.result;
+                spending.indebted = mySpending.indebted;
+                spending.purchaser = mySpending.purchaser;
 
                 for (Person p: spending.indebted) {
                     if (p.id == null)
-                        launchCreatePersonIndebted(mySpending, p);
+                        launchCreatePersonIndebted(spending, p);
                     else
-                        launchLinkSpendingToPerson(mySpending, p);
+                        launchLinkSpendingToPerson(spending, p);
                 }
             }
         });

@@ -104,7 +104,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
                 if (markers.size() > 0) {
                     LatLngBounds bounds = builder.build();
-                    int padding = 100; // offset from edges of the map in pixels
+                    int padding = 200; // offset from edges of the map in pixels
                     CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
                     mMap.moveCamera(cu);
                 }

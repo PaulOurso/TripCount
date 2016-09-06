@@ -30,7 +30,7 @@ public class APIHelper {
     public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
     public static final String URL_SPENDING_FROM_GROUP = DOMAIN + "/groups/%1$s/spendings";
     public static final String URL_PERSON_FROM_GROUP = DOMAIN + "/groups/%1$s/persons";
-    public static final String URL_CREATE_SPENDING = DOMAIN + "/groups/%1$s/spendings";
+    public static final String URL_CREATE_SPENDING = DOMAIN + "/spending";
     public static final String URL_LINK_PERSON_TO_SPENDING = DOMAIN + "/spending/%1$s/indebted/rel/%2$s";
     public static final String URL_SPENDING = DOMAIN + "/spending/%1$s";
 
@@ -185,19 +185,16 @@ public class APIHelper {
 
     public static void createSpending(Context c, Group group,Spending spending, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeObjectOf(), taskComplete);
-        String url = String.format(URL_CREATE_SPENDING, group.id);
+        String url = URL_CREATE_SPENDING;
         apiRequest.addParam("name", spending.name);
         apiRequest.addParam("price", String.valueOf(spending.price));
         apiRequest.addParam("create_date", spending.create_date);
         apiRequest.addParam("spending_purchaser_id", spending.purchaser.id);
+        apiRequest.addParam("spending_group_id", group.id);
         if (spending.latitude != 0.0 && spending.longitude != 0.0) {
             apiRequest.addParam("latitude", String.valueOf(spending.latitude));
             apiRequest.addParam("longitude", String.valueOf(spending.longitude));
         }
-        List<String> includes = new ArrayList<>();
-        includes.add("purchase");
-        includes.add("indebted");
-        url = include(0, url, includes);
         apiRequest.setMethod(Request.Method.POST);
         apiRequest.execute(url);
     }

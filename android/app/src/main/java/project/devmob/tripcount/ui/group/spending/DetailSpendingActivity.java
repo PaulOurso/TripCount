@@ -118,7 +118,7 @@ public class DetailSpendingActivity extends AppCompatActivity implements OnMapRe
         LinearLayout layoutParticipantsList = (LinearLayout) findViewById(R.id.linearlayout_participants_list);
 
         TextView participantName = (TextView) item_participant.findViewById(R.id.item_participant_name);
-        TextView participantPrice = (TextView) item_participant.findViewById(R.id.item_participant_name);
+        TextView participantPrice = (TextView) item_participant.findViewById(R.id.item_participant_price);
 
         participantName.setText(person.name);
         participantPrice.setText(String.valueOf(String.format(getString(R.string.currency), price)));

@@ -38,8 +38,9 @@ public class FormatHelper {
     }
 
     public static double formatPrice(double price) {
-        DecimalFormat df = new DecimalFormat("#,##");
+        /*DecimalFormat df = new DecimalFormat("#,##");
         df.setRoundingMode(RoundingMode.FLOOR);
-        return Double.parseDouble(df.format(price));
+        return Double.parseDouble(df.format(price));*/
+        return Math.round(price*100.0)/100.0;
     }
 }
