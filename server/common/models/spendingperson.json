@@ -2,20 +2,18 @@
   "name": "spendingperson",
   "plural": "spendingperson",
   "base": "PersistedModel",
-  "idInjection": false,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
     "personId": {
       "type": "string",
-      "default": "",
-    	"id": true
+      "default": ""
     },
     "spendingId": {
       "type": "string",
-      "default": "",
-    	"id": true
+      "default": ""
     }
   },
   "validations": [],

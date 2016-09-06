@@ -1,5 +1,8 @@
 package project.devmob.tripcount.utils.helpers;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,5 +35,12 @@ public class FormatHelper {
             e.printStackTrace();
         }
         return cal;
+    }
+
+    public static double formatPrice(double price) {
+        /*DecimalFormat df = new DecimalFormat("#,##");
+        df.setRoundingMode(RoundingMode.FLOOR);
+        return Double.parseDouble(df.format(price));*/
+        return Math.round(price*100.0)/100.0;
     }
 }

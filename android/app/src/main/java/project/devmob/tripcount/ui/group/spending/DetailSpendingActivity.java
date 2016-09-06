@@ -1,10 +1,5 @@
 package project.devmob.tripcount.ui.group.spending;
 
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -83,6 +76,7 @@ public class DetailSpendingActivity extends AppCompatActivity implements OnMapRe
     public void displayInfos(Spending spending) {
         TextView date = (TextView) findViewById(R.id.detail_spending_date);
         TextView price = (TextView) findViewById(R.id.detail_spending_price);
+        TextView purchaser = (TextView) findViewById(R.id.detail_spending_payer);
         Calendar calendar = FormatHelper.formatStringToCal(spending.create_date);
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(spending.name);
@@ -90,10 +84,18 @@ public class DetailSpendingActivity extends AppCompatActivity implements OnMapRe
             price.setText(String.format(getString(R.string.currency), spending.price));
         if (date != null)
             date.setText(calendar.get(Calendar.DAY_OF_MONTH)+"/"+(calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.YEAR));
-        //createItemParticipant(spending.indebteds);
+        if (purchaser != null) {
+            purchaser.setText(spending.purchaser.name);
+        }
 
-        if (spending.position != null) {
-            LatLng latLng = new LatLng(spending.position.lat, spending.position.lng);
+        // +1 for purchaser
+        double priceByPerson = FormatHelper.formatPrice(spending.price/(double)(spending.indebted.size()+1));
+        for (Person person: spending.indebted) {
+            createItemParticipant(priceByPerson, person);
+        }
+
+        if (spending.latitude != 0.0 && spending.longitude != 0.0) {
+            LatLng latLng = spending.getLatLng();
             mMap.addMarker(new MarkerOptions().position(latLng).title(spending.name));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -102,21 +104,24 @@ public class DetailSpendingActivity extends AppCompatActivity implements OnMapRe
                     // Nothing
                 }
             });
+            LinearLayout linearLayoutMap = (LinearLayout) findViewById(R.id.linearlayout_detail_spending_map);
+            if (linearLayoutMap != null)
+                linearLayoutMap.setVisibility(View.VISIBLE);
         }
     }
 
-    public void createItemParticipant(final Person person){
+    public void createItemParticipant(double price, final Person person){
 
         LayoutInflater layoutInflater = LayoutInflater.from(this);
 
-        LinearLayout item_participant = (LinearLayout) layoutInflater.inflate(R.layout.item_participant,null);
+        LinearLayout item_participant = (LinearLayout) layoutInflater.inflate(R.layout.item_detail_participant,null);
         LinearLayout layoutParticipantsList = (LinearLayout) findViewById(R.id.linearlayout_participants_list);
 
-        CheckBox participantCheckBox = (CheckBox) item_participant.findViewById(R.id.item_participant_checkbox);
-        TextView participantsName = (TextView) item_participant.findViewById(R.id.item_participant_name);
+        TextView participantName = (TextView) item_participant.findViewById(R.id.item_participant_name);
+        TextView participantPrice = (TextView) item_participant.findViewById(R.id.item_participant_price);
 
-        participantsName.setText(person.name);
-        participantCheckBox.setVisibility(View.GONE);
+        participantName.setText(person.name);
+        participantPrice.setText(String.valueOf(String.format(getString(R.string.currency), price)));
 
         layoutParticipantsList.addView(item_participant);
     }

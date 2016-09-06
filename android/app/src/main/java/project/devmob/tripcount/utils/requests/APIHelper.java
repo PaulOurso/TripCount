@@ -4,9 +4,6 @@ import android.content.Context;
 
 import com.android.volley.Request;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,13 +26,12 @@ public class APIHelper {
 
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
     public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
-    public static final String URL_CREATE_PERSON= DOMAIN + "/person";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
     public static final String URL_JOIN_GROUP = DOMAIN + "/accounts/%1$s/groups/rel/%2$s";
-    public static final String URL_SPENDING_FROM_GROUP= DOMAIN + "/groups/%1$s/spendings";
-    public static final String URL_PERSON_FROM_GROUP= DOMAIN + "/groups/%1$s/persons";
-    public static final String URL_CREATE_SPENDING= DOMAIN + "/groups/%1$s/spendings";
-    public static final String URL_LINK_PERSON_TO_SPENDING= DOMAIN + "/spending/%1$s/indebted/rel/%2$s";
+    public static final String URL_SPENDING_FROM_GROUP = DOMAIN + "/groups/%1$s/spendings";
+    public static final String URL_PERSON_FROM_GROUP = DOMAIN + "/groups/%1$s/persons";
+    public static final String URL_CREATE_SPENDING = DOMAIN + "/spending";
+    public static final String URL_LINK_PERSON_TO_SPENDING = DOMAIN + "/spending/%1$s/indebted/rel/%2$s";
     public static final String URL_SPENDING = DOMAIN + "/spending/%1$s";
 
     enum OrderBy { ASC, DESC }
@@ -180,30 +176,32 @@ public class APIHelper {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeObjectOf(), taskComplete);
         String url = String.format(URL_SPENDING, spendingId);
         apiRequest.setMethod(Request.Method.GET);
+        List<String> includes = new ArrayList<>();
+        includes.add("purchaser");
+        includes.add("indebted");
+        url = include(0, url, includes);
         apiRequest.execute(url);
     }
 
     public static void createSpending(Context c, Group group,Spending spending, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Spending.typeObjectOf(), taskComplete);
-        String url = String.format(URL_CREATE_SPENDING, group.id);
+        String url = URL_CREATE_SPENDING;
         apiRequest.addParam("name", spending.name);
         apiRequest.addParam("price", String.valueOf(spending.price));
         apiRequest.addParam("create_date", spending.create_date);
-        JSONObject positionJson = new JSONObject();
-        try {
-            positionJson.put("lat", spending.position.lat);
-            positionJson.put("lng", spending.position.lng);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        apiRequest.addParam("spending_purchaser_id", spending.purchaser.id);
+        apiRequest.addParam("spending_group_id", group.id);
+        if (spending.latitude != 0.0 && spending.longitude != 0.0) {
+            apiRequest.addParam("latitude", String.valueOf(spending.latitude));
+            apiRequest.addParam("longitude", String.valueOf(spending.longitude));
         }
-        apiRequest.addParam("position", positionJson.toString());
         apiRequest.setMethod(Request.Method.POST);
         apiRequest.execute(url);
     }
 
-    public static void createPerson(Context c, Person person, TaskComplete<Type> taskComplete) {
+    public static void createPerson(Context c, Group group, Person person, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Person.typeObjectOf(), taskComplete);
-        String url = URL_CREATE_PERSON;
+        String url = String.format(URL_PERSON_FROM_GROUP, group.id);
         apiRequest.addParam("name", person.name);
         apiRequest.setMethod(Request.Method.POST);
         apiRequest.execute(url);
