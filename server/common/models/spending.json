@@ -9,14 +9,14 @@
   "properties": {
     "name": {
       "type": "string",
-      "default": "\"\""
+      "default": ""
     },
     "price": {
       "type": "number",
       "default": 0
     },
     "create_date": {
-      "type": "date",
+      "type": "string",
       "default": ""
     },
     "latitude": {
@@ -37,7 +37,9 @@
     },
     "indebted": {
       "type": "hasAndBelongsToMany",
-      "model": "person"
+      "model": "person",
+      "through": "spendingperson",
+      "foreignKey": "spendingId"
     }
   },
   "acls": [],

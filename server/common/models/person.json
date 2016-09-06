@@ -9,10 +9,23 @@
   "properties": {
     "name": {
       "type": "string",
-      "default": "\"\""
+      "default": ""
     }
   },
   "validations": [],
+  "relations": {
+    "purchaser": {
+      "type": "hasMany",
+      "model": "spending",
+      "foreignKey": "spending_purchaser_id"
+    },
+    "indebted": {
+      "type": "hasAndBelongsToMany",
+      "model": "spending",
+      "through": "spendingperson",
+      "foreignKey": "personId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

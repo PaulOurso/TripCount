@@ -16,7 +16,7 @@
       "index": true
     },
     "create_date": {
-      "type": "date",
+      "type": "string",
       "default": ""
     }
   },

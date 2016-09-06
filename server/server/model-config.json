@@ -36,5 +36,11 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "spendingperson": {
+    "dataSource": "TripCountDataSource",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }
