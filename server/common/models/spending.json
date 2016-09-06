@@ -33,7 +33,7 @@
   "validations": [],
   "relations": {
     "purchaser": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "person",
       "foreignKey": "spending_purchaser_id"
     },
