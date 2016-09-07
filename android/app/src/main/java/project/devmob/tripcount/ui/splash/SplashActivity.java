@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         // Check if has acccount & connected
         Account account = Preference.getAccount(SplashActivity.this);
         if (account != null) {
-            APIHelper.getMyAccounts(SplashActivity.this, account.access_token, new TaskComplete<Type>() {
+            APIHelper.getMyAccounts(SplashActivity.this, true, account.access_token, new TaskComplete<Type>() {
                 @Override
                 public void run() {
                     List<Account> list = (List<Account>) result;

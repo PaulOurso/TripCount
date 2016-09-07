@@ -95,11 +95,16 @@ public class APIHelper {
     }
 
     public static void getMyAccounts(Context c, String access_token, TaskComplete<Type> taskComplete) {
+        getMyAccounts(c, false, access_token, taskComplete);
+    }
+
+    public static void getMyAccounts(Context c, boolean fromSplash, String access_token, TaskComplete<Type> taskComplete) {
         APIRequest<Type> apiRequest = new APIRequest<>(c, Account.typeListOf(), taskComplete);
         String url = URL_ACCOUNTS;
         Map<String, String> wh = new HashMap<>();
         wh.put("access_token", access_token);
         url = where(0, url, wh);
+        apiRequest.setShowDialog(!fromSplash);
         apiRequest.setMethod(Request.Method.GET);
         apiRequest.execute(url);
     }
