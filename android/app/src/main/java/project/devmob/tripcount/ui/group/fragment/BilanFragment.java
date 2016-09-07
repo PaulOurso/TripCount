@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.lang.reflect.Type;
@@ -38,6 +37,9 @@ public class BilanFragment extends Fragment {
     private LinearLayout bilanLayout;
     private SwipeRefreshLayout swipeContainer;
 
+    private Map<Person, Double> purchasersMap;
+    private Map<Person, Double> indebtedMap;
+
     public BilanFragment() {
         // Required empty public constructor
     }
@@ -52,6 +54,8 @@ public class BilanFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         spendingCount = new HashMap<>();
+        purchasersMap = new HashMap<>();
+        indebtedMap = new HashMap<>();
     }
 
     @Override
@@ -90,6 +94,7 @@ public class BilanFragment extends Fragment {
                 Log.d(TAG, "" + personList.size());
                 bilanLayout.removeAllViews();
                 calculBilan(personList);
+                calculRefund();
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -105,7 +110,8 @@ public class BilanFragment extends Fragment {
                 }
             }
         }
-
+        purchasersMap.clear();
+        indebtedMap.clear();
         for (Person person: persons){
             double bilanValue = 0;
 
@@ -120,6 +126,11 @@ public class BilanFragment extends Fragment {
                     bilanValue = bilanValue + spendingPurchaser.price-(spendingPurchaser.price/(double) spendingCount.get(spendingPurchaser.id));
                 }
             }
+
+            if (bilanValue > 0)
+                purchasersMap.put(person, bilanValue);
+            else if (bilanValue < 0)
+                indebtedMap.put(person, bilanValue);
             createItemBilan(person, bilanValue);
         }
     }
@@ -155,5 +166,39 @@ public class BilanFragment extends Fragment {
         bilanTotal.setText(String.format(getContext().getString(R.string.currency),String.valueOf(bilanValue)));
 
         bilanLayout.addView(item_bilan);
+    }
+
+
+    // Remboursement
+    public void calculRefund() {
+        double purchaserValue;
+        double indebtedValue;
+        for (Map.Entry<Person, Double> entryPurchaser: purchasersMap.entrySet()) {
+            final Person purchaserPerson = entryPurchaser.getKey();
+            purchaserValue = entryPurchaser.getValue();
+
+            for (Map.Entry<Person, Double> entryIndebted: indebtedMap.entrySet()) {
+                final Person indebtedPerson = entryPurchaser.getKey();
+                if (entryIndebted.getValue() != 0) {
+                    indebtedValue = entryPurchaser.getValue();
+                    if (purchaserValue > indebtedValue) {
+                        purchaserValue = purchaserValue - indebtedValue;
+                        indebtedMap.put(indebtedPerson, 0.0);
+                        //TODO: Call add item for indebted refund purchaser
+                    }
+                    else {
+                        indebtedValue = indebtedValue - purchaserValue;
+                        purchasersMap.put(purchaserPerson, 0.0);
+                        indebtedMap.put(indebtedPerson, indebtedValue);
+                        //TODO : Call add item for indebted refund purchaser
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void createItemRefund(Person indebted, Person purchaser, double refund) {
+
     }
 }
