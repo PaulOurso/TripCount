@@ -1,4 +1,4 @@
-package project.devmob.tripcount.utils;
+package project.devmob.tripcount.utils.helpers;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,10 +13,12 @@ import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
+import java.util.Calendar;
 import java.util.List;
 
 import project.devmob.tripcount.R;
 import project.devmob.tripcount.ui.group.spending.AddSpendingActivity;
+import project.devmob.tripcount.utils.Constant;
 
 /**
  * Created by Tony on 02/09/2016.
@@ -46,8 +48,14 @@ public class LocationHelper {
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, callback);
+        String providerEnabled = locationManager.getBestProvider(criteria, true);
+        if (providerEnabled != null) {
+            Location location = locationManager.getLastKnownLocation(providerEnabled);
+            if (location != null)
+                callback.onLocationChanged(location);
+            if (location == null || Calendar.getInstance().getTime().getTime() - location.getTime() > 1500)
+                locationManager.requestLocationUpdates(0, 0, criteria, callback, null);
+        }
         else
             showActivateLocation(act);
 

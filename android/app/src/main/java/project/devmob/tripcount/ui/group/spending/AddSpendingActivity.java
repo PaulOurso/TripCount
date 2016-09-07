@@ -1,13 +1,10 @@
 package project.devmob.tripcount.ui.group.spending;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +34,7 @@ import project.devmob.tripcount.models.Group;
 import project.devmob.tripcount.models.Person;
 import project.devmob.tripcount.models.Spending;
 import project.devmob.tripcount.utils.Constant;
-import project.devmob.tripcount.utils.LocationHelper;
+import project.devmob.tripcount.utils.helpers.LocationHelper;
 import project.devmob.tripcount.utils.helpers.FormatHelper;
 import project.devmob.tripcount.utils.requests.APIHelper;
 import project.devmob.tripcount.utils.requests.TaskComplete;
@@ -134,25 +131,27 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     @Override
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        position = latLng;
-        locationHelper.removeRequest(AddSpendingActivity.this);
+        if (location.getAccuracy() < 500) {
+            position = latLng;
+            locationHelper.removeRequest(AddSpendingActivity.this);
+        }
 
         Log.d(TAG_LOCATION+" onLocation", latLng.toString());
     }
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-        Log.d(TAG_LOCATION+" onStatus", s);
+        Log.d(TAG_LOCATION + " onStatus", s);
     }
 
     @Override
     public void onProviderEnabled(String s) {
-        Log.d(TAG_LOCATION+" onProvider", s);
+        Log.d(TAG_LOCATION + " onProvider", s);
     }
 
     @Override
     public void onProviderDisabled(String s) {
-        Log.d(TAG_LOCATION+" onProvider", s);
+        Log.d(TAG_LOCATION + " onProvider", s);
     }
 
     public List<String> getListNamePersons(List<Person> list) {
@@ -225,7 +224,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                 new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Log.d(TAG, ""+isChecked);
+                        Log.d(TAG, "" + isChecked);
                         if (isNotPurchaserSelected(person))
                             personMap.put(person, isChecked);
                         else {
@@ -317,7 +316,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
                 spending.indebted = mySpending.indebted;
                 spending.purchaser = mySpending.purchaser;
 
-                for (Person p: spending.indebted) {
+                for (Person p : spending.indebted) {
                     if (p.id == null)
                         launchCreatePersonIndebted(spending, p);
                     else
@@ -338,7 +337,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
     }
 
     private void launchLinkSpendingToPerson(Spending mySpending, Person person){
-        APIHelper.linkPersonToSpending(AddSpendingActivity.this, mySpending, person,new TaskComplete<Type>() {
+        APIHelper.linkPersonToSpending(AddSpendingActivity.this, mySpending, person, new TaskComplete<Type>() {
             @Override
             public void run() {
                 Toast.makeText(AddSpendingActivity.this, R.string.add_spending_success, Toast.LENGTH_SHORT).show();
