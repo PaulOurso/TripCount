@@ -144,6 +144,13 @@ public class BilanFragment extends Fragment {
         TextView bilanPersonName = (TextView) item_bilan.findViewById(R.id.item_bilan_person_name);
         TextView bilanTotal = (TextView) item_bilan.findViewById(R.id.item_bilan_total);
 
+        if(bilanValue>0){
+            bilanTotal.setTextColor(getContext().getResources().getColor(R.color.green));
+        }
+        else if(bilanValue<0){
+            bilanTotal.setTextColor(getContext().getResources().getColor(R.color.red));
+        }
+
         bilanPersonName.setText(person.name);
         bilanTotal.setText(String.format(getContext().getString(R.string.currency),String.valueOf(bilanValue)));
 
