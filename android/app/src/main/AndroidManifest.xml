@@ -2,18 +2,65 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.devmob.tripcount">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.grouplist.GroupListActivity"
+            android:label="@string/title_activity_group_list"
+            android:theme="@style/AppTheme"  />
+        <activity
+            android:name=".ui.group.GroupActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.grouplist.GroupListActivity" />
+        </activity>
+        <activity
+            android:name=".ui.grouplist.AddGroupActivity"
+            android:label="@string/title_activity_add_group"
+            android:theme="@style/AppTheme"  >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.group.GroupActivity" />
+        </activity>
+        <activity android:name=".ui.group.spending.AddSpendingActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.group.GroupActivity" />
+        </activity>
+        <activity android:name=".ui.group.spending.DetailSpendingActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.group.GroupActivity" />
         </activity>
     </application>
 

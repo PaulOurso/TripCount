@@ -1,0 +1,28 @@
+{
+  "name": "account",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "mail": {
+      "type": "string",
+      "index": true
+    },
+    "access_token": {
+      "type": "string",
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "groups": {
+      "type": "hasAndBelongsToMany",
+      "model": "group"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

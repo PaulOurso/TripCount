@@ -1,0 +1,34 @@
+{
+  "name": "spendingperson",
+  "plural": "spendingperson",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "personId": {
+      "type": "string",
+      "default": ""
+    },
+    "spendingId": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "validations": [],
+  "relations": {
+    "persons": {
+      "type": "belongsTo",
+      "model": "person",
+      "foreignKey": "personId"
+    },
+    "spendings": {
+      "type": "belongsTo",
+      "model": "spending",
+      "foreignKey": "spendingId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

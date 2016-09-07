@@ -1,0 +1,47 @@
+{
+  "name": "spending",
+  "plural": "spending",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "price": {
+      "type": "number",
+      "default": 0
+    },
+    "create_date": {
+      "type": "string",
+      "default": ""
+    },
+    "latitude": {
+      "type": "number",
+      "default": 0.0
+    },
+    "longitude": {
+      "type": "number",
+      "default": 0.0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "purchaser": {
+      "type": "belongsTo",
+      "model": "person",
+      "foreignKey": "spending_purchaser_id"
+    },
+    "indebted": {
+      "type": "hasAndBelongsToMany",
+      "model": "person",
+      "through": "spendingperson",
+      "foreignKey": "spendingId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
