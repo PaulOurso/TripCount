@@ -223,14 +223,13 @@ public class APIHelper {
     }
 
     public static void getPersonAndSpendingByGroup (Context c, Group group, TaskComplete<Type> taskComplete) {
-        APIRequest<Type> apiRequest = new APIRequest<>(c, Group.typeListOf(), taskComplete);
+        APIRequest<Type> apiRequest = new APIRequest<>(c, Person.typeListOf(), taskComplete);
         String url = String.format(URL_PERSON_INCLUDE_SPENDING_FROM_GROUP, group.id);
         Map<String, OrderBy> order = new HashMap<>();
-        order.put("name", OrderBy.ASC);
-        url = orderBy(0, url, order);
         List<String> includes = new ArrayList<>();
-        includes.add("spending");
-        url = include(1, url, includes);
+        includes.add("indebted");
+        includes.add("purchaser");
+        url = include(0, url, includes);
         apiRequest.setMethod(Request.Method.GET);
         apiRequest.execute(url);
     }

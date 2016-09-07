@@ -68,4 +68,7 @@
     <string name="message_token_is">The group\'s token is : %1$s</string>
     <string name="participants">Participants :</string>
     <string name="location">Localisation :</string>
+
+    <!--bilanFragment -->
+    <string name="bilan_title">Bilan of spendings </string>
 </resources>

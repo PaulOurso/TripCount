@@ -5,6 +5,25 @@
     tools:context=".ui.group.fragment.BilanFragment">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bilan_title"
+        android:textSize="30sp"
+        android:gravity="center"/>
+     
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black"/>
+        
+        
+    <LinearLayout
         android:id="@+id/linearlayout_bilan_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +33,8 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
+
+    </LinearLayout>
 
     </LinearLayout>
 
