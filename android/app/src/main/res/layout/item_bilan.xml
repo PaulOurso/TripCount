@@ -15,7 +15,7 @@
             android:id="@+id/item_bilan_person_name"
             android:layout_width="10dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:padding="5dp"
             android:gravity="center_vertical"
             android:text="name"
@@ -26,7 +26,8 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
+            android:paddingRight="30dp"
+            android:gravity="right|center_vertical"
             android:text="1000€"
             android:textSize="20sp" />
 

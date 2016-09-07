@@ -4,30 +4,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.group.fragment.SpendingFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/listing_spending"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:dividerHeight="1dp"
-            android:footerDividersEnabled="true"
-            android:headerDividersEnabled="true"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearlayout_nothing_in_spending"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nothing_in_spending" />
+            </LinearLayout>
+
+            <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swipeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listing_spending"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="1dp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true"
+                android:visibility="gone" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabSpendingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="15dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/add_white"
-        android:onClick="addSpending"/>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="15dp"
+        android:onClick="addSpending"
+        android:src="@drawable/add_white" />
 
 </RelativeLayout>

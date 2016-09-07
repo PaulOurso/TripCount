@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.lang.reflect.Type;
@@ -26,6 +27,7 @@ public class GroupListActivity extends AppCompatActivity {
 
     private List<Group> groupList;
     private ListView listViewGroup;
+    private LinearLayout linearLayoutNothing;
 
     private static final String TAG = "GroupListActivity" ;
 
@@ -34,6 +36,7 @@ public class GroupListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
 
+        linearLayoutNothing = (LinearLayout) findViewById(R.id.linearlayout_nothing_in_group);
         listViewGroup = (ListView) findViewById(R.id.listing_group);
         groupList = new ArrayList<>();
     }
@@ -46,6 +49,10 @@ public class GroupListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 groupList = (List<Group>) this.result;
+                if (groupList != null && groupList.size() > 0) {
+                    linearLayoutNothing.setVisibility(View.GONE);
+                    listViewGroup.setVisibility(View.VISIBLE);
+                }
                 listViewGroup.setAdapter(new AdapterGroupList(GroupListActivity.this, R.layout.item_group, groupList));
                 Log.d(TAG, ""+groupList.size());
             }
