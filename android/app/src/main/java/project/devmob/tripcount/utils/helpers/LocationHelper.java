@@ -58,34 +58,6 @@ public class LocationHelper {
         }
         else
             showActivateLocation(act);
-
-
-        /*if (locationManager.getProviders(criteria, true).size() > 0)
-            locationManager.requestSingleUpdate(Privid, callback, Looper.myLooper());
-        else {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    act);
-            alertDialogBuilder
-                    .setMessage(act.getString(R.string.alert_message_enable_gps))
-                    .setCancelable(false)
-                    .setPositiveButton(act.getString(R.string.alert_action_positive_enable_gps),
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    Intent callGPSSettingIntent = new Intent(
-                                            android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    act.startActivity(callGPSSettingIntent);
-                                }
-                            });
-            alertDialogBuilder.setNegativeButton(act.getString(R.string.cancel),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alertDialogBuilder.create();
-            alert.show();
-        }*/
     }
 
     public void showActivateLocation(final Activity act) {

@@ -3,11 +3,13 @@ package project.devmob.tripcount.ui.group.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.lang.reflect.Type;
@@ -34,6 +36,7 @@ public class BilanFragment extends Fragment {
     private List<Person> personList;
     private Map<String,Integer> spendingCount;
     private LinearLayout bilanLayout;
+    private SwipeRefreshLayout swipeContainer;
 
     public BilanFragment() {
         // Required empty public constructor
@@ -52,21 +55,46 @@ public class BilanFragment extends Fragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_bilan, container, false);
+        bilanLayout = (LinearLayout) view.findViewById(R.id.linearlayout_bilan_list);
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(R.color.colorPrimary);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        refreshData();
+    }
 
+    private void refreshData() {
         spendingCount.clear();
         APIHelper.getPersonAndSpendingByGroup(getContext(), myGroup, new TaskComplete<Type>() {
             @Override
             public void run() {
 
                 personList = (List<Person>) this.result;
-                Log.d(TAG, ""+personList.size());
+                Log.d(TAG, "" + personList.size());
                 bilanLayout.removeAllViews();
                 calculBilan(personList);
+                swipeContainer.setRefreshing(false);
             }
         });
     }
+
 
     private void calculBilan(List<Person> persons){
 
@@ -121,16 +149,4 @@ public class BilanFragment extends Fragment {
 
         bilanLayout.addView(item_bilan);
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_bilan, container, false);
-        bilanLayout = (LinearLayout) view.findViewById(R.id.linearlayout_bilan_list);
-
-        return view;
-    }
-
 }
