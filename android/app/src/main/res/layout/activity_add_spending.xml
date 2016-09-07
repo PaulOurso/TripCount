@@ -39,13 +39,6 @@
             android:hint="@string/add_spending_name_hint" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="@string/add_spending_cost_title"
-            android:textSize="20sp" />
-
-        <TextView
             android:id="@+id/add_spending_error_no_cost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,13 +46,26 @@
             android:textColor="@color/red"
             android:visibility="gone" />
 
-        <EditText
-            android:id="@+id/new_spending_cost"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:hint="@string/add_spending_cost_hint"
-            android:inputType="numberDecimal" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/add_spending_cost_title"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/new_spending_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:hint="@string/add_spending_cost_hint"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +80,8 @@
 
                 <EditText
                     android:id="@+id/new_participant_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:hint="@string/add_new_participant_hint" />
 
