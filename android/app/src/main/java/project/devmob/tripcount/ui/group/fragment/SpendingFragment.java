@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.lang.reflect.Type;
@@ -30,6 +31,7 @@ public class SpendingFragment extends Fragment {
     private ListView listViewSpending;
 
     private static final String TAG = "SpendingFrament" ;
+    private LinearLayout linearLayoutNothingSpending;
     private SwipeRefreshLayout swipeContainer;
 
     public SpendingFragment() {
@@ -59,6 +61,8 @@ public class SpendingFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_spending, container, false);
         listViewSpending = (ListView) view.findViewById(R.id.listing_spending);
 
+        linearLayoutNothingSpending = (LinearLayout) view.findViewById(R.id.linearlayout_nothing_in_spending);
+
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeResources(R.color.colorPrimary);
 
@@ -79,6 +83,10 @@ public class SpendingFragment extends Fragment {
             public void run() {
                 spendingList= (List<Spending>) this.result;
                 listViewSpending.setAdapter(new AdapterSpendingList(getContext(), R.layout.item_spending, spendingList));
+                if (spendingList != null && spendingList.size() > 0) {
+                    linearLayoutNothingSpending.setVisibility(View.GONE);
+                    listViewSpending.setVisibility(View.VISIBLE);
+                }
                 swipeContainer.setRefreshing(false);
                 Log.d(TAG, ""+spendingList.size());
             }

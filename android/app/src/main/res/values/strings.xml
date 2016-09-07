@@ -71,4 +71,8 @@
 
     <!--bilanFragment -->
     <string name="bilan_title">Bilan of spendings </string>
+    <string name="refunding_title">Refunding</string>
+    <string name="nothing_in_spending">No spendings</string>
+    <string name="nothing_in_group">No groups</string>
+    <string name="item_refunding_arrow">-></string>
 </resources>
