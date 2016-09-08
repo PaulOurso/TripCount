@@ -12,7 +12,12 @@ import java.util.List;
 public class Person implements Serializable {
     public String id;
     public String name;
+
+    //link between person and spending
+
+    //list of spending where this person is a payer
     public List<Spending> purchaser;
+    //list of spending where this person need to refund
     public List<Spending> indebted;
 
     public static Type typeObjectOf() {

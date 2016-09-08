@@ -111,6 +111,7 @@ public class BilanFragment extends Fragment {
         });
     }
 
+    //class to express a refund to a purchaser
     private static class Refunding implements Comparable<Refunding> {
         Person person;
         double money;
@@ -120,6 +121,7 @@ public class BilanFragment extends Fragment {
             money = _money;
         }
 
+        //used to sort by decreasing refunds
         @Override
         public int compareTo(Refunding refunding) {
             int compare;
@@ -159,10 +161,12 @@ public class BilanFragment extends Fragment {
             }
             if(person.purchaser != null) {
                 for (Spending spendingPurchaser : person.purchaser) {
+                    //deduct the purchaser's part from the amount of money to be refund
                     bilanValue = bilanValue + spendingPurchaser.price-(spendingPurchaser.price/(double) spendingCount.get(spendingPurchaser.id));
                 }
             }
 
+            //spread refund between purchaser an indebted
             Refunding refunding = new Refunding(person, Math.abs(bilanValue));
             if (bilanValue > 0)
                 purchasersRefundList.add(refunding);
@@ -207,18 +211,18 @@ public class BilanFragment extends Fragment {
     }
 
 
-    // Remboursement
+    // Refund
     public void calculRefund() {
         double purchaserValue;
         double indebtedValue;
         Collections.sort(purchasersRefundList);
         Collections.sort(indebtedRefundList);
-        for (Refunding refundingPurchaser: purchasersRefundList) {
-            Person purchaserPerson = refundingPurchaser.person;
-            purchaserValue = refundingPurchaser.money;
 
+        for (Refunding refundingPurchaser: purchasersRefundList) {
+            purchaserValue = refundingPurchaser.money;
             for (Refunding refundingIndebted: indebtedRefundList) {
-                final Person indebtedPerson = refundingIndebted.person;
+
+                //check if this indebted person's refund was already calculated
                 if (refundingIndebted.money != 0) {
                     indebtedValue = refundingIndebted.money;
                     if (purchaserValue > indebtedValue) {

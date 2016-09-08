@@ -18,7 +18,12 @@ public class Spending implements Serializable {
     public String create_date;
     public double latitude;
     public double longitude;
+
+    //foreign keys between spending and person
+
+    //payer of a spending
     public Person purchaser;
+    //list of participants who need to refund this spending
     public List<Person> indebted;
 
     public static Type typeObjectOf() {

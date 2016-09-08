@@ -116,6 +116,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         locationHelper.removeRequest(AddSpendingActivity.this);
     }
 
+    //used to ask the position for location helper
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -250,6 +251,7 @@ public class AddSpendingActivity extends AppCompatActivity implements android.lo
         if (mySpending.indebted == null)
             mySpending.indebted = new ArrayList<>();
 
+        //check if the input required are fill
         if (editNewSpendingName != null && editNewSpendingCost != null) {
             if (editNewSpendingName.getText().toString().isEmpty()) {
                 showError(R.id.add_spending_error_no_name, R.string.add_spending_error_no_name);

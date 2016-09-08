@@ -24,6 +24,7 @@ public class APIHelper {
     // Access server
     public static final String DOMAIN = "http://tripcount.ddns.net/api";
 
+    //url build for each request
     public static final String URL_ACCOUNTS = DOMAIN + "/accounts";
     public static final String URL_GROUP_FIND_ONE = DOMAIN + "/groups";
     public static final String URL_ACCOUNTS_GROUPS_FROM_ID = DOMAIN + "/accounts/%s/groups";
